@@ -23,7 +23,7 @@ set wildignore+=*.zip,*.rar,*.gz,*.bz2 " compressed files
 let mapleader = ","
 let maplocalleader = "\\"
 
-" timeout 
+" timeout
 set notimeout
 set ttimeout
 set ttimeoutlen=5
@@ -93,7 +93,7 @@ set autowrite
 
 " always display status line
 set laststatus=2
-" status line format 
+" status line format
 function! WMode()
      let m=mode()
 
@@ -131,7 +131,7 @@ set scrolloff=5
 " wrap lines
 set wrap
 
-" indentation 
+" indentation
 set shiftwidth=5
 set tabstop=5
 
