@@ -1,0 +1,30 @@
+# keyboard layouts on X
+alias skus="setxkbmap -layout us -variant alt-intl"
+alias skbr="setxkbmap -layout br -variant abnt2"
+
+# "quick dir nav (needs autocd on)
+alias home="$HOME"
+alias ...="../.."
+alias ....="../../.."
+
+# listing
+alias ls='ls --color=auto --group-directories-first --time-style=+"%d-%m-%Y %H:%M" -F'
+alias l='ls'
+alias ll="ls -l"
+alias la="ls -A"
+alias lh="ls -hlA"
+
+# grep
+alias grep="grep --color=auto"
+
+# vim
+alias vi="vim"
+
+# misc
+alias j="jobs -l"
+alias df="df -h"     # human-readable sizes
+alias free="free -m" # size in MB
+alias mp="mplayer"
+
+# better cp behavior
+alias cp="cp -i" # asks before overriting

@@ -1,0 +1,19 @@
+# cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${HOME}/.zsh/cache"
+
+# nice description for completion
+zstyle ':completion:*:descriptions' format $'%{\e[1;35m%}%U%B%d%b%u%{\e[0m%}'
+
+# fuzzy matching on mistyping
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*'original only
+zstyle ':completion:*:approximate:*' \
+     max-errors 'reply=($((($#PREFFIX+$#SUFFIX)/3))numeric)'
+
+# ignore commands i don't have
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# menu; at this mo only for kill
+zstyle ':completion:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force list always
