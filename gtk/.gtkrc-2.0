@@ -1,0 +1,13 @@
+include ".gtkrc-2.0.mine"
+# general opts
+gtk-theme-name = "Vertex"
+gtk-icon-theme-name = "elementary"
+gtk-font-name = "Open Sans 9"
+# misc
+gtk-button-images = 0
+# fonts conf
+gtk-xft-antialias = 1
+gtk-xft-dpi = 96
+gtk-xft-hinting = 1
+gtk-xft-hintstyle = "hintslight"
+gtk-xft-rgba = "rgb"
