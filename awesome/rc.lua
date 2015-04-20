@@ -85,7 +85,7 @@ local layouts = {
 -- }}}
 
 -- Wallpaper
-sexec("sh " .. homed .. ".fehbg &")
+sexec("sh " .. homed .. "/.fehbg &")
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
