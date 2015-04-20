@@ -63,7 +63,6 @@ local editor = os.getenv("EDITOR") or "vim"
 
 -- Some cmds
 local edcmd  = terminal .. " -e " .. editor
-local bgcmd  = "feh --bg-fill "
 
 -- keys
 alt  = "Mod1"
@@ -86,7 +85,7 @@ local layouts = {
 -- }}}
 
 -- Wallpaper
-sexec(bgcmd .. homed .. "/Imagens/Wallpapers/edgeofnight.jpg")
+sexec("sh " .. homed .. ".fehbg &")
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
