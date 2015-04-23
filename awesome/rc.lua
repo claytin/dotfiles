@@ -61,9 +61,6 @@ beautiful.init(confd .. "/themes/fsteps/theme.lua")
 local terminal = "termite"
 local editor = os.getenv("EDITOR") or "vim"
 
--- Some cmds
-local edcmd  = terminal .. " -e " .. editor
-
 -- keys
 alt  = "Mod1"
 shft = "Shift"
@@ -107,16 +104,15 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-     { "manual", terminal .. " -e man awesome" },
-     { "edit config", edcmd .. " " .. awesome.conffile },
-     { "restart", awesome.restart },
-     { "quit", awesome.quit }
+     { "manual", terminal .. ' -e "man awesome"' },
+     { "config", terminal .. ' -e "' .. editor .. " " .. awesome.conffile .. '"' },
+     { "restart", awesome.restart }
 }
 
 mymainmenu = awful.menu({
      items = {
-          { "awesome", myawesomemenu, beautiful.awesome_icon },
-          { "open terminal", terminal }
+          { "awesome", myawesomemenu },
+          { "quit", awesome.quit }
      }
 })
 
