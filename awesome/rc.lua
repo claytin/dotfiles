@@ -106,6 +106,7 @@ end
 myawesomemenu = {
      { "manual", terminal .. ' -e "man awesome"' },
      { "config", terminal .. ' -e "' .. editor .. " " .. awesome.conffile .. '"' },
+     { "theme", terminal .. ' -e "' .. editor .. " " .. confd .. '/themes/fsteps/theme.lua"' },
      { "restart", awesome.restart }
 }
 
