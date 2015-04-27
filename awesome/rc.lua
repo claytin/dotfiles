@@ -130,7 +130,7 @@ icons.oarrow = wibox.widget.imagebox(beautiful.oarrow)
 
 dtw = wibox.widget.textbox() -- date and time widget
 vicious.register(dtw, vicious.widgets.date, " <span color='#a6b3d2'>dt</span>"
-     .. " %d-%m-%Y %H:%M ")
+     .. " %a %d %b %H:%M ")
 
 memw = wibox.widget.textbox() -- memory widget
 vicious.register(memw, vicious.widgets.mem, " <span color='#a6b3d2'>mem</span>"
