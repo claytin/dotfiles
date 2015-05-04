@@ -35,6 +35,9 @@ colors
 # needed for colorfull termite
 eval $(dircolors ~/.dircolors)
 
+bindkey -v          # "force" vi line edit mode as default
+export KEYTIMEOUT=1 # reduces delay between modes
+
 # prompt
 local RA=''    # \ue0b0
 local LA=''    # \ue0b2
