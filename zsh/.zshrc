@@ -35,6 +35,8 @@ colors
 # needed for colorfull termite
 eval $(dircolors ~/.dircolors)
 
+bindkey -v # vi mode
+
 # prompt
 local RA=''    # \ue0b0
 local LA=''    # \ue0b2
@@ -44,31 +46,34 @@ local TISJ='+'
 
 local SUFFIX="%K{black} %F{magenta}%#%f %k%F{black}${RA}%f"
 
-prompt_state() {
+function my_prompt {
      local pstr
-     pstr=""
 
-     case $CMDRV in
-          ( 0 | 148 )
-               ;;
-          (*) pstr="%K{8} %F{red}${FAIL}%f %k"
-               ;;
-     esac
+     pstr="%K{8} %F{white}${1}%f %k"
+
+     [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{8} %F{red}${FAIL}%f %k" # melhorar
 
      [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr}%K{8} %F{yellow}${TISJ}%f %k"
 
      [[ -n "${pstr}" ]] && echo "${pstr}%K{black}%F{8}${RA}%f%k"
 }
 
-set_prompt() {
-     CMDRV=$?
-     PROMPT="$(prompt_state)$SUFFIX "
+function get_cmdrv { CMDRV=$? }
+
+function zle-line-init zle-keymap-select {
+     local KM="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+
+     PROMPT="$(my_prompt $KM)${SUFFIX} "
+
+     zle reset-prompt
 }
 
-prompt_init() {
-     autoload -Uz add-zsh-hook
-     add-zsh-hook precmd set_prompt
-}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd get_cmdrv
 
-prompt_init
+zle -N zle-line-init     # Attach widgets
+zle -N zle-keymap-select # ...
+
+export KEYTIMEOUT=1
+
 RPROMPT="%F{black}${LA}%f%K{black} %F{white}%3~%f %k"
