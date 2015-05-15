@@ -1,0 +1,54 @@
+*foreground: #f0eef1
+*background: #111416
+
+! Colors
+! black
+*color0:  #282a2e
+*color8:  #373b41
+! red
+*color1:  #d45e5e
+*color9:  #e48080
+! green
+*color2:  #90c38a
+*color10: #afdead
+! yellow
+*color3:  #c2b059
+*color11: #ded193
+! blue
+*color4:  #599bb5
+*color12: #a2cedd
+! magenta
+*color5:  #bf8bb8
+*color13: #e2b0db
+! cyan
+*color6:  #308b70
+*color14: #a6e9d5
+! white
+*color7:  #b2aab5
+*color15: #d4ced9
+
+! Fonts
+Xft.dpi:       96
+Xft.rgba:      rgb
+! Xft.antialias: true
+Xft.hinting:   true
+Xft.autohint:  false
+Xft.hintstyle: hintmedium
+Xft.lcdfilter: lcddefault
+
+! URxvt
+URxvt.depth:           32
+
+URxvt.geometry:        107x32
+
+URxvt.borderLess:      false
+URxvt.externalBorder:  0
+URxvt.internalBorder:  2
+
+URxvt.scrollBar:       false
+
+URxvt.cursorBlink:     true
+URxvt.cursorUnderline: true
+URxvt.visualBell:      false
+
+URxvt.font:            xft:tewi
