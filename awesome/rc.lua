@@ -125,7 +125,7 @@ menubar.utils.terminal = terminal
 -- {{{ Wibox
 -- :build
 local icons = {}
-icons.arrow  = wibox.widget.imagebox(beautiful.arrow) -- will only be used later
+icons.arrow  = wibox.widget.imagebox(beautiful.arrow)
 icons.oarrow = wibox.widget.imagebox(beautiful.oarrow)
 
 dtw = wibox.widget.textbox() -- date and time widget
