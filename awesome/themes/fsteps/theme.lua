@@ -9,7 +9,8 @@ theme = {}
 
 theme.font          = "tewi 8"
 
-theme.bg_normal     = "#111416"
+-- theme.bg_normal     = "#111416"
+theme.bg_normal     = "#242629"
 theme.bg_focus      = theme.bg_normal
 theme.bg_urgent     = theme.bg_normal
 theme.bg_minimize   = theme.bg_normal
@@ -21,7 +22,7 @@ theme.fg_focus      = "#777777"
 theme.fg_urgent     = "#d99395"
 theme.fg_minimize   =  theme.fg_focus
 
-theme.border_width  = 2
+theme.border_width  = 1
 theme.border_normal = "#111111"
 theme.border_focus  = "#9cabc8"
 theme.border_marked = "#91231c"
@@ -77,8 +78,8 @@ theme.layout_spiral     = theme_dir .. "/layouts/spiral.png"
 theme.layout_dwindle    = theme_dir .. "/layouts/dwindle.png"
 
 -- Icons
-theme.arrow  = theme_dir .. "/icons/arrow.png"
-theme.oarrow = theme_dir .. "/icons/oarrow.png"
+theme.mem = theme_dir .. "/icons/mem.png"
+theme.cpu = theme_dir .. "/icons/cpu.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
