@@ -1,2 +1,2 @@
 xrandr --output LVDS1 --off --output VGA1 --auto
-compton -cCbf -o 0.64 -r 24 -t -20 -l -20 -D 5 --backend glx --vsync opengl &
+compton -cbf -o 0.44 -r 8 -t -10 -l -13 -D 5 --backend glx --vsync opengl &
