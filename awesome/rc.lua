@@ -125,25 +125,25 @@ menubar.utils.terminal = terminal
 -- {{{ Wibox
 -- :build
 local icons = {}
-icons.arrow  = wibox.widget.imagebox(beautiful.arrow)
-icons.oarrow = wibox.widget.imagebox(beautiful.oarrow)
+icons.mem    = wibox.widget.imagebox(beautiful.mem)
+icons.cpu    = wibox.widget.imagebox(beautiful.cpu)
+
+sep = wibox.widget.textbox() -- date and time widget
+vicious.register(sep, vicious.widgets.date, "<span color='#a6b3d2'>│</span>") -- \u2502
 
 dtw = wibox.widget.textbox() -- date and time widget
-vicious.register(dtw, vicious.widgets.date, " <span color='#a6b3d2'>dt</span>"
-     .. " %a %d %b %H:%M ")
+vicious.register(dtw, vicious.widgets.date, " %a %d %b %H:%M ")
 
 memw = wibox.widget.textbox() -- memory widget
-vicious.register(memw, vicious.widgets.mem, " <span color='#a6b3d2'>mem</span>"
-     .. " $2MB ")
+vicious.register(memw, vicious.widgets.mem, " $2MB ")
 
 cpuw = wibox.widget.textbox() -- cpu usage widget
-vicious.register(cpuw, vicious.widgets.cpu, " <span color='#a6b3d2'>cpu</span>"
-     .. " <span color='#777777'>#1</span> $1%"
+vicious.register(cpuw, vicious.widgets.cpu, " <span color='#777777'>#1</span> $1%"
      .. " <span color='#777777'>#2</span> $2% ")
 
 thrmw = wibox.widget.textbox() -- cpu temperature widget
 vicious.register(thrmw, vicious.widgets.thermal,
-     " <span color='#a6b3d2'>temp</span>" .. " $1 °C ", 30, "thermal_zone0")
+     "<span color='#777777'> $1 °C </span>", 30, "thermal_zone0")
 
 -- Create a wibox for each screen and add it
 mywibox     = {}
@@ -211,25 +211,21 @@ for s = 1, screen.count() do
      -- Widgets that are aligned to the left
      local left_layout = wibox.layout.fixed.horizontal()
      left_layout:add(mytaglist[s])
-     left_layout:add(wibox.widget.textbox(" "))
-     left_layout:add(icons.oarrow)
-     left_layout:add(wibox.widget.textbox(" "))
+     left_layout:add(sep)
      left_layout:add(mylayoutbox[s])
-     left_layout:add(wibox.widget.textbox(" "))
-     left_layout:add(icons.oarrow)
      left_layout:add(wibox.widget.textbox(" "))
      left_layout:add(mypromptbox[s])
 
      -- Widgets that are aligned to the right
      local right_layout = wibox.layout.fixed.horizontal()
      if s == 1 then right_layout:add(wibox.widget.systray()) end
-     right_layout:add(icons.arrow)
-     right_layout:add(thrmw)
-     right_layout:add(icons.arrow)
+     right_layout:add(icons.cpu)
      right_layout:add(cpuw)
-     right_layout:add(icons.arrow)
+     right_layout:add(thrmw)
+     right_layout:add(sep)
+     right_layout:add(icons.mem)
      right_layout:add(memw)
-     right_layout:add(icons.arrow)
+     right_layout:add(sep)
      right_layout:add(dtw)
 
      -- Now bring it all together (with the tasklist in the middle)
