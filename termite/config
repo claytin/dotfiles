@@ -1,4 +1,5 @@
 [options]
+
 size_hints = true
 geometry   = 107x32
 
@@ -27,28 +28,28 @@ color0  = #5e5c65
 color8  = #6e6b76
 
 # red
-color1  = #ff5661
-color9  = #fb737c
+color1  = #f26371
+color9  = #ea737f
 
 # green
-color2  = #91d067
-color10 = #8eb574
+color2  = #aab82c
+color10 = #bac555
 
 # yellow
-color3  = #c4946a
-color11 = #c68d75
+color3  = #c09168
+color11 = #d49b6a
 
 # blue
-color4  = #78cae0
-color12 = #67a6bf
+color4  = #62a9ce
+color12 = #7dbbdb
 
 # magenta
 color5  = #cda6fa
-color13 = #c09dda
+color13 = #d2aefc
 
 # cyan
-color6  = #67d6b7
-color14 = #8ecdbb
+color6  = #76c7b7
+color14 = #84dac9
 
 # white
 color7  = #ded8c3
