@@ -32,24 +32,24 @@ color1  = #f26371
 color9  = #ea737f
 
 # green
-color2  = #aab82c
-color10 = #bac555
+color2  = #86c486
+color10 = #99cc99
 
 # yellow
-color3  = #c09168
-color11 = #d49b6a
+color3  = #c9a764
+color11 = #d3b069
 
 # blue
-color4  = #62a9ce
-color12 = #7dbbdb
+color4  = #6699cc
+color12 = #64a9ce
 
 # magenta
-color5  = #cda6fa
-color13 = #d2aefc
+color5  = #cc99cc
+color13 = #d8a2d8
 
 # cyan
-color6  = #76c7b7
-color14 = #84dac9
+color6  = #66ccc1
+color14 = #75d2c8
 
 # white
 color7  = #ded8c3
