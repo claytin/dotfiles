@@ -20,6 +20,7 @@ browser = luakit
 
 # special
 foreground      = #6a7474
+foreground_bold = #6a7474
 background      = #fdf6e3
 cursor          = #6a7474
 
