@@ -44,13 +44,16 @@ local LA=''    # \ue0b2
 local FAIL='✘'  # \u2718
 local TISJ='+'
 
-local SUFFIX="%K{black} %F{magenta}%#%f %k%F{black}${RA}%f"
+# local SUFFIX="%K{black} %F{magenta}%#%f %k%F{black}${RA}%f"
+local SUFFIX="%F{magenta}%#%f"
 
 function my_prompt {
      local pstr
 
-     pstr="%K{8} %F{white}${1}%f %k"
+     # pstr="%K{8} %F{white}${1}%f %k"
+     pstr="%F{8}${1}%f "
 
+     # [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{8} %F{red}${FAIL}%f %k" # melhorar
      [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{8} %F{red}${FAIL}%f %k" # melhorar
 
      [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr}%K{8} %F{yellow}${TISJ}%f %k"
@@ -63,7 +66,7 @@ function get_cmdrv { CMDRV=$? }
 function zle-line-init zle-keymap-select {
      local KM="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
 
-     PROMPT="$(my_prompt $KM)${SUFFIX} "
+     PROMPT="[$(my_prompt $KM)]─ ${SUFFIX} "
 
      zle reset-prompt
 }
@@ -76,4 +79,5 @@ zle -N zle-keymap-select # ...
 
 export KEYTIMEOUT=1
 
-RPROMPT="%F{black}${LA}%f%K{black} %F{white}%3~%f %k"
+# RPROMPT="%F{black}${LA}%f%K{black} %F{white}%3~%f %k"
+RPROMPT="%3~"
