@@ -9,31 +9,36 @@ theme = {}
 
 theme.font          = "tewi 8"
 
--- theme.bg_normal     = "#111416"
-theme.bg_normal     = "#242629"
-theme.bg_focus      = theme.bg_normal
+-- theme.bg_normal     = "#242629"
+theme.bg_normal     = "#fdf6e3"
+-- theme.bg_focus      = theme.bg_normal
+theme.bg_focus      = "#eee8d5"
 theme.bg_urgent     = theme.bg_normal
 theme.bg_minimize   = theme.bg_normal
 
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#f0eef1"
-theme.fg_focus      = "#777777"
-theme.fg_urgent     = "#d99395"
+-- theme.fg_normal     = "#f0eef1"
+theme.fg_normal     = "#657b83"
+-- theme.fg_focus      = "#777777"
+theme.fg_focus      = "#002b36"
+-- theme.fg_urgent     = "#d99395"
+theme.fg_urgent     = "#dc322f"
 theme.fg_minimize   =  theme.fg_focus
 
 theme.border_width  = 1
-theme.border_normal = "#111111"
-theme.border_focus  = "#9cabc8"
-theme.border_marked = "#91231c"
+theme.border_normal = theme.bg_focus
+-- theme.border_focus  = "#9cabc8"
+theme.border_focus  = "#073642"
+-- theme.border_marked = "#91231c"
 
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty]
-theme.taglist_fg_focus    = "#a6b3d2"
+theme.taglist_fg_focus    = theme.fg_focus
 theme.taglist_fg_urgent   = theme.fg_urgent
-theme.taglist_fg_occupied = theme.fg_minimize
+theme.taglist_fg_occupied = theme.border_normal
 theme.taglist_fg_empty    = theme.fg_normal
 
 -- tasklist_[bg|fg]_[focus|urgent]
