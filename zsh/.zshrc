@@ -44,18 +44,18 @@ local LA=''    # \ue0b2
 local FAIL='✘'  # \u2718
 local TISJ='+'
 
-local SUFFIX="%K{black} %F{magenta}%#%f %k%F{black}${RA}%f"
+local SUFFIX="%K{7} %F{magenta}%#%f %k%F{7}${RA}%f"
 
 function my_prompt {
      local pstr
 
-     pstr="%K{8} %F{white}${1}%f %k"
+     pstr="%K{14} %F{0}${1}%f %k"
 
-     [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{8} %F{red}${FAIL}%f %k" # melhorar
+     [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{14} %F{red}${FAIL}%f %k" # melhorar
 
-     [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr}%K{8} %F{yellow}${TISJ}%f %k"
+     [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr}%K{14} %F{yellow}${TISJ}%f %k"
 
-     [[ -n "${pstr}" ]] && echo "${pstr}%K{black}%F{8}${RA}%f%k"
+     [[ -n "${pstr}" ]] && echo "${pstr}%K{7}%F{14}${RA}%f%k"
 }
 
 function get_cmdrv { CMDRV=$? }
@@ -76,4 +76,4 @@ zle -N zle-keymap-select # ...
 
 export KEYTIMEOUT=1
 
-RPROMPT="%F{black}${LA}%f%K{black} %F{white}%3~%f %k"
+RPROMPT="%F{7}${LA}%f%K{7} %F{0}%3~%f %k"
