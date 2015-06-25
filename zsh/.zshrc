@@ -38,25 +38,19 @@ eval $(dircolors ~/.dircolors)
 bindkey -v # vi mode
 
 # prompt
-local RA=''    # \ue0b0
-local LA=''    # \ue0b2
 
-local FAIL='✘'  # \u2718
+local FAIL='!'  # \u2718
 local TISJ='+'
 
-# local SUFFIX="%K{7} %F{magenta}%#%f %k%F{7}${RA}%f"
 local SUFFIX=" %F{magenta}%#%f"
 
 function my_prompt {
      local pstr
 
-     # pstr="%K{14} %F{0}${1}%f %k"
-     pstr=" %F{7}${1}%f"
+     pstr="${1}"
 
-     # [[ $CMDRV -ne 0 ]] && pstr="${pstr}%K{14} %F{red}${FAIL}%f %k" # melhorar
      [[ $CMDRV -ne 0 ]] && pstr="${pstr} %F{1}${FAIL}%f" # melhorar
 
-     # [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr}%K{14} %F{yellow}${TISJ}%f %k"
      [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr} %F{3}${TISJ}%f"
 
      echo "${pstr} "
@@ -67,7 +61,7 @@ function get_cmdrv { CMDRV=$? }
 function zle-line-init zle-keymap-select {
      local KM="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
 
-     PROMPT="$(my_prompt $KM)${SUFFIX} "
+     PROMPT="%F{15}[%f$(my_prompt $KM)%F{15}]─%f${SUFFIX} "
 
      zle reset-prompt
 }
@@ -80,5 +74,4 @@ zle -N zle-keymap-select # ...
 
 export KEYTIMEOUT=1
 
-# RPROMPT="%F{7}${LA}%f%K{7} %F{0}%3~%f %k"
-RPROMPT="%F{7}%3~%f"
+RPROMPT="%F{15}%3~%f"
