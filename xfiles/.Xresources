@@ -1,39 +1,39 @@
 ! special
-*.foreground:   #657b83
-*.background:   #fdf6e3
-*.cursorColor:  #657b83
+*.foreground:   #fafcfb
+*.background:   #151515
+*.cursorColor:  #fafcfb
 
 ! black
-*.color0:       #eee8d5
-*.color8:       #fdf6e3
+*.color0:       #28383d
+*.color8:       #586e75
 
 ! red
-*.color1:       #dc322f
-*.color9:       #cb4b16
+*.color1:       #e65959
+*.color9:       #e36c6c
 
 ! green
-*.color2:       #859900
-*.color10:      #93a1a1
+*.color2:       #b9c655
+*.color10:      #bfd964
 
 ! yellow
-*.color3:       #b58900
-*.color11:      #839496
+*.color3:       #e59644
+*.color11:      #f5a34e
 
 ! blue
-*.color4:       #268bd2
-*.color12:      #657b83
+*.color4:       #4d99b8
+*.color12:      #5bb8de
 
 ! magenta
-*.color5:       #d33682
-*.color13:      #6c71c4
+*.color5:       #f767ad
+*.color13:      #f67bb7
 
 ! cyan
-*.color6:       #2aa198
-*.color14:      #586e75
+*.color6:       #4ec9bf
+*.color14:      #66e0d6
 
 ! white
-*.color7:       #073642
-*.color15:      #002b36
+*.color7:       #839496
+*.color15:      #c5c8c6
 
 ! Fonts
 Xft.dpi:       96
