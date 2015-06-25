@@ -188,6 +188,9 @@ set showbreak=↳
 " syntax
 syntax enable
 
+" color scheme
+colorscheme jellybeans
+
 " gui opts (gvim)
 if has('gui_running')
      " no toolbar
@@ -204,8 +207,4 @@ if has('gui_running')
 
      " geometry
      set lines=30 columns=120
-
-     " color scheme
-     set background=light
-     colorscheme solarized
 endif
