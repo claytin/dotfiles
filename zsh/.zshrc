@@ -53,7 +53,7 @@ function my_prompt {
 
      [[ $(jobs -l | wc -l) -gt 0 ]] && pstr="${pstr} %F{3}${TISJ}%f"
 
-     echo "${pstr} "
+     echo "${pstr}"
 }
 
 function get_cmdrv { CMDRV=$? }
