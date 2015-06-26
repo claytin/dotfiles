@@ -58,7 +58,7 @@ local sexec = awful.util.spawn_with_shell
 beautiful.init(confd .. "/themes/fsteps/theme.lua")
 
 -- This is used later as the default terminal and editor to run
-local terminal = "termite"
+local terminal = "urxvtc"
 local editor = os.getenv("EDITOR") or "vim"
 
 -- keys
@@ -104,9 +104,9 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-     { "manual", terminal .. ' -e "man awesome"' },
-     { "config", terminal .. ' -e "' .. editor .. " " .. awesome.conffile .. '"' },
-     { "theme", terminal .. ' -e "' .. editor .. " " .. confd .. '/themes/fsteps/theme.lua"' },
+     { "manual", terminal .. " -e man awesome" },
+     { "config", terminal .. " -e " .. editor .. " " .. awesome.conffile },
+     { "theme", terminal .. " -e " .. editor .. " " .. confd .. "/themes/fsteps/theme.lua" },
      { "restart", awesome.restart }
 }
 
