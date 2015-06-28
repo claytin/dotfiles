@@ -47,7 +47,7 @@ local SUFFIX=" %F{magenta}%#%f"
 function my_prompt {
      local pstr
 
-     pstr="${1}"
+     pstr="%F{8}${1}%f"
 
      [[ $CMDRV -ne 0 ]] && pstr="${pstr} %F{1}${FAIL}%f" # melhorar
 
@@ -59,9 +59,9 @@ function my_prompt {
 function get_cmdrv { CMDRV=$? }
 
 function zle-line-init zle-keymap-select {
-     local KM="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+     local KM="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
 
-     PROMPT="%F{15}[%f$(my_prompt $KM)%F{15}]─%f${SUFFIX} "
+     PROMPT="$(my_prompt $KM)${SUFFIX} "
 
      zle reset-prompt
 }
