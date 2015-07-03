@@ -35,6 +35,12 @@ set smartcase
 set hlsearch
 set incsearch
 
+"" misc/test
+" stop unnecessary rendering
+set lazyredraw
+" highlight column
+set cursorcolumn
+
 " very-magic mode on, when doing regex search
 nnoremap / /\v
 vnoremap / /\v
