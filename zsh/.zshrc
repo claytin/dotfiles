@@ -39,7 +39,7 @@ bindkey -v # vi mode
 
 # prompt
 
-local FAIL='!'  # \u2718
+local FAIL='!'
 local TISJ='+'
 
 local SUFFIX=" %F{magenta}%#%f"
