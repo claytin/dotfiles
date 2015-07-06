@@ -1,3 +1,11 @@
+# grant just one video output
 xrandr --output LVDS1 --off --output VGA1 --auto
+
+# start rxvt-unicode daemon
 urxvtd -q -f -o
+
+# start compositor
 compton -cbf -o 0.44 -r 8 -t -10 -l -13 -D 5 --backend glx --vsync opengl &
+
+# start cloud utility SoiderOak
+SpiderOak &
