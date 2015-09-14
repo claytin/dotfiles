@@ -1,0 +1,59 @@
+#!/usr/bin/env perl
+
+use v5.22;
+
+sub wms {
+     chomp(my $wmss = `bspc control --get-status`);
+     my ($mon, @wms) = split /:/, $wmss;
+
+     my @dsks;
+     foreach my $dis (@wms) {
+          push(@dsks, (substr $dis, 1)) if ($dis =~ /^[oOF]/)
+     }
+
+     foreach my $d (@dsks) {
+          say $d;
+     }
+}
+
+sub thrm {
+     chomp(my $acpit = `acpi -t | awk '{ printf("%d\\n", \$4)}'`);
+     my @thrm = split /\n/, $acpit;
+
+     my $ft = 0;
+     for (my $i = 0; $i < @thrm; $i++) {
+          $ft = $thrm[$i] if ($thrm[$i] > $ft);
+     }
+
+     return sprintf("%s", "$ft °C "); # \u00b0
+}
+
+sub proc { # hopefully this is temporary solution
+     chomp(my $mpso = `mpstat 2 1 -P ON |\
+          awk '/Média/ && \$2 ~ /[0-3]/ { printf("%d\\n", 100 - \$12) }'`);
+     my @cpu = split /\n/, $mpso;
+
+     my $cpu_str = "";
+     for (my $i = 0; $i < @cpu; $i++) {
+          $cpu_str .= "#$i $cpu[$i]\% ";
+     }
+
+     return $cpu_str;
+}
+
+sub umem {
+     chomp(my $umem = `free -m | awk '/Mem/ { print \$3 }'`); # used memory
+
+     return sprintf("%s", "${umem}MB ");
+}
+
+sub date {
+     chomp(my $date = `date +"%a %d %b %H:%M"`);
+
+     return $date;
+}
+
+while (1) {
+     &wms;
+     say "%{c}", &date, "%{r}", &thrm, &proc, &umem;
+}

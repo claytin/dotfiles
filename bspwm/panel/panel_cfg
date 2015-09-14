@@ -1,0 +1,4 @@
+# config options for lemonbar
+
+PANEL_HEIGHT=18
+PANEL_FONT=tewi

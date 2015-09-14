@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $(pgrep -xc panel) -gt 1 ]; then
+     printf "%s" "Panel already running." >&2
+     exit 1
+fi
+
+source panel/panel_cfg
+
+bspc config top_padding $PANEL_HEIGHT
+
+panel/info | lemonbar -g x18 -f "${PANEL_FONT}" -p
