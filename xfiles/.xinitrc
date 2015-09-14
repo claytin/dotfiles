@@ -19,4 +19,5 @@ fi
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+# exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+sxhkd & exec bspwm
