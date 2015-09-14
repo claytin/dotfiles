@@ -1,0 +1,89 @@
+#
+# bspwm hotkeys
+#
+
+# quit bspwm-session
+ctrl + alt + x
+     bspc quit
+
+# close focused window
+ctrl + alt + q
+     bspc window -c
+
+# try to balance space occupied by the windows
+ctrl+ alt + b
+    bspc desktop -B
+
+shift + alt + {s,f}
+	bspc window -t {floating,fullscreen}
+
+# move windows around on current layout
+shift + alt + {h,j,k,l}
+	bspc window -s {left,down,up,right}
+
+# focus (cycle) windows
+alt + {j,k}
+     bspc window -f {next,prev}
+
+# cycle leafs of current layout
+ctrl + alt + {comma,period}
+     bspc desktop -C {backward,forward}
+
+# set preselection
+ctrl + alt + {h,j,k,l,space}
+     bspc window -p {left,down,up,right,cancel}
+
+# resize
+shift + alt + {Left,Down,Up,Right}
+     bspc window -e {left -10,down +10,up -10,right +10}
+
+ctrl + alt + {Left,Down,Up,Right}
+     bspc window -e {right -10,up +10,down -10,left +10}
+
+# goes to selected desktop
+alt + {1-9,0}
+     bspc desktop -f ^{1-9,10}
+
+# moves window to the Nth desktop
+shift + alt + {1-9,0}
+     bspc window -d ^{1-9,10}
+
+# mouse actions
+~button1
+     bspc pointer -g focus
+
+alt + button{1-3}
+     bspc pointer -g {move,resize_side,resize_corner}
+
+alt + !button{1-3}
+     super pointer -t %i %i
+
+alt + @button{1-3}
+     bspc pointer -u
+
+#
+# wm independent hotkeys
+#
+
+# super + Return
+ctrl + alt + t
+     urxvtc
+
+ctrl + alt + e
+     gvim
+
+ctrl + alt + f
+     pcmanfm
+
+ctrl + alt + a
+     urxvtc -e alsamixer
+
+ctrl + alt + c
+     urxvtc -e htop
+
+alt + F2
+	dmenu_run
+
+# make sxhkd reload its configuration files:
+ctrl + alt + y
+     pkill -USR1 -x sxhkd
