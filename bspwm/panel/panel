@@ -5,8 +5,9 @@ if [ $(pgrep -xc panel) -gt 1 ]; then
      exit 1
 fi
 
-source panel/panel_cfg
+source $XDG_CONFIG_HOME/bspwm/panel/panel_cfg
 
 bspc config top_padding $PANEL_HEIGHT
 
-panel/info | lemonbar -g x18 -f "${PANEL_FONT}" -B "#FF151515" -p
+$XDG_CONFIG_HOME/bspwm/panel/info |\
+lemonbar -g x18 -f "${PANEL_FONT}" -B "#FF151515" -p

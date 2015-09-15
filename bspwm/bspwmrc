@@ -15,4 +15,4 @@ $HOME/.fehbg
 
 xsetroot -cursor_name left_ptr
 
-panel/panel &
+$XDG_CONFIG_HOME/bspwm/panel/panel &
