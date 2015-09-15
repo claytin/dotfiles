@@ -2,18 +2,28 @@
 
 use v5.22;
 
+sub clrds {
+     return "%{F$_[1]}$_[0]%{F-}";
+}
+
 sub wms {
      chomp(my $wmss = `bspc control --get-status`);
      my ($mon, @wms) = split /:/, $wmss;
 
-     my @dsks;
+     my $dsks = "";
      foreach my $dis (@wms) {
-          push(@dsks, (substr $dis, 1)) if ($dis =~ /^[oOF]/)
+          given ($dis) {
+               when (/^o/) {
+                    $dsks .= " " . &clrds((substr $dis, 1), "#ff839496");
+               }
+               when (/^[OF]/) {
+                    $dsks .= " " . &clrds((substr $dis, 1), "#fffafcfb");
+               }
+               default { continue }
+          }
      }
 
-     foreach my $d (@dsks) {
-          say $d;
-     }
+     return $dsks;
 }
 
 sub thrm {
@@ -25,17 +35,17 @@ sub thrm {
           $ft = $thrm[$i] if ($thrm[$i] > $ft);
      }
 
-     return sprintf("%s", "$ft °C "); # \u00b0
+     return sprintf("%s", &clrds("$ft °C ", "#fffafcfb")); # \u00b0
 }
 
-sub proc { # hopefully this is temporary solution
-     chomp(my $mpso = `mpstat 2 1 -P ON |\
+sub proc { # to slow can't be used
+     chomp(my $mpso = `mpstat 1 1 -P ON |\
           awk '/Média/ && \$2 ~ /[0-3]/ { printf("%d\\n", 100 - \$12) }'`);
      my @cpu = split /\n/, $mpso;
 
      my $cpu_str = "";
      for (my $i = 0; $i < @cpu; $i++) {
-          $cpu_str .= "#$i $cpu[$i]\% ";
+          $cpu_str .= "%{F#ff839496}#$i%{F-} $cpu[$i]\% ";
      }
 
      return $cpu_str;
@@ -50,10 +60,9 @@ sub umem {
 sub date {
      chomp(my $date = `date +"%a %d %b %H:%M"`);
 
-     return $date;
+     return &clrds($date, "#fffafcfb");
 }
 
 while (1) {
-     &wms;
-     say "%{c}", &date, "%{r}", &thrm, &proc, &umem;
+     say "%{l}", &wms, "%{c}", &date, "%{r}", &thrm, &proc, &umem;
 }
