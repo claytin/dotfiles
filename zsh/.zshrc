@@ -59,7 +59,7 @@ function my_prompt {
 function get_cmdrv { CMDRV=$? }
 
 function zle-line-init zle-keymap-select {
-     local KM="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+     local KM="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
 
      PROMPT="$(my_prompt $KM)${SUFFIX} "
 
@@ -75,3 +75,4 @@ zle -N zle-keymap-select # ...
 export KEYTIMEOUT=1
 
 RPROMPT="%F{15}%3~%f"
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:~/.rakudobrew/bin
