@@ -38,19 +38,6 @@ sub thrm {
      return sprintf("%s", &clrds("$ft °C ", "#fffafcfb")); # \u00b0
 }
 
-sub proc { # to slow can't be used
-     chomp(my $mpso = `mpstat 1 1 -P ON |\
-          awk '/Média/ && \$2 ~ /[0-3]/ { printf("%d\\n", 100 - \$12) }'`);
-     my @cpu = split /\n/, $mpso;
-
-     my $cpu_str = "";
-     for (my $i = 0; $i < @cpu; $i++) {
-          $cpu_str .= "%{F#ff839496}#$i%{F-} $cpu[$i]\% ";
-     }
-
-     return $cpu_str;
-}
-
 sub umem {
      chomp(my $umem = `free -m | awk '/Mem/ { print \$3 }'`); # used memory
 
@@ -64,5 +51,6 @@ sub date {
 }
 
 while (1) {
-     say "%{l}", &wms, "%{c}", &date, "%{r}", &thrm, &proc, &umem;
+     say "%{l}", &wms, "%{c}", &date, "%{r}", &thrm, &umem;
+     sleep 1;
 }
