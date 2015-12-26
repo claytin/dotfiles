@@ -32,9 +32,6 @@ source $HOME/.zstyles
 autoload -U colors
 colors
 
-# needed for colorfull termite
-eval $(dircolors ~/.dircolors)
-
 bindkey -v # vi mode
 
 # prompt
