@@ -1,5 +1,7 @@
 # grant just one video output
-[[ $HOST == "Z0" ]]  && xrandr --output LVDS1 --off --output VGA1 --auto
+if [ $HOST == "Z0" ]; then
+     xrandr --output LVDS1 --off --output VGA1 --auto
+fi
 
 # start compositor
 compton -cbf -o 0.44 -r 8 -t -10 -l -13 -D 5 --backend glx --vsync opengl &
