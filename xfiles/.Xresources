@@ -50,7 +50,7 @@ URxvt.geometry:        107x32
 
 URxvt.borderLess:      false
 URxvt.externalBorder:  0
-URxvt.internalBorder:  2
+URxvt.internalBorder:  8
 
 URxvt.scrollBar:       false
 
