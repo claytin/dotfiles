@@ -24,6 +24,9 @@ setopt autocd
 # extend glob
 setopt extendedglob
 
+# dircolors
+eval $(dircolors ~/.dircolors)
+
 source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
