@@ -1,0 +1,29 @@
+# theme/icon theme
+gtk-theme-name = "Arc"
+gtk-icon-theme-name = "Ozon"
+
+# font
+style "user-font" {
+     font_name = "Open Sans 9"
+}
+
+widget_class "*" style "user-font"
+gtk-font-name = "Open Sans 9"
+
+# font rendering
+gtk-xft-antialias = 1
+gtk-xft-dpi = 96
+gtk-xft-hinting = 1
+gtk-xft-hintstyle = "hintslight"
+gtk-xft-rgba = "rgb"
+
+# misc
+gtk-button-images = 0
+
+## legacy style for fixing gvim strange white gap
+## not used since i quited gvim
+# style "gvim" {
+#      bg[NORMAL]="#151515"
+# }
+
+# widget "vim-main-window.*GtkForm" style "gvim"

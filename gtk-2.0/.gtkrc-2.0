@@ -1,0 +1,2 @@
+# user options conf file
+include ".gtkrc-2.0.mine"
