@@ -51,6 +51,6 @@ sub date {
 }
 
 while (1) {
-     say "%{l}", &wms, "%{c}", &date, "%{r}", &thrm, &umem;
+     say "%{l}", &wms, "%{c} ", &date, "%{r}", &thrm, &umem;
      sleep 1;
 }
