@@ -67,13 +67,16 @@ alt + @button{1-3}
 
 # super + Return
 ctrl + alt + t
-     urxvtc
+     urxvtc -e zsh -c tmux
 
-ctrl + alt + e
-     gvim
+ctrl + alt + u
+     urxvtc
 
 ctrl + alt + f
      pcmanfm
+
+ctrl + alt + m
+     urxvtc -e ncmpcpp
 
 ctrl + alt + a
      urxvtc -e alsamixer
@@ -82,7 +85,7 @@ ctrl + alt + c
      urxvtc -e htop
 
 alt + F2
-	dmenu_run
+     dmenu_run
 
 # make sxhkd reload its configuration files:
 ctrl + alt + y
