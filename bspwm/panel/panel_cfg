@@ -1,4 +1,9 @@
 # config options for lemonbar
 
 PANEL_HEIGHT=18
-PANEL_FONT=Awesome
+
+PANEL_FONT1="tewi"
+PANEL_FONT2="siji"
+
+PANEL_BG="#FF151516"
+PANEL_FG="#FFE3E5E3"

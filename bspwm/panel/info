@@ -1,32 +1,82 @@
 #!/usr/bin/env perl
 
-use v5.22;
+use 5.020;
+use warnings;
 
-sub clrds {
-     return "%{F$_[1]}$_[0]%{F-}";
+## TODO
+## add wifi
+## add battery
+
+## Colors
+my $NORMAL_FG = "#e3e5e3";
+my $NORMAL_BG = "#151515";
+
+my $OCCUPIED_FG = "#ff839496";
+
+## Font Slots
+## The assigned fonts can be found in ./panel_cfg
+
+## Icons/Glyphs
+my $DATE_ICON  = "\x{e266}";
+my $CLOCK_ICON = "\x{e015}";
+my $CPU_ICON   = "\x{e026}";
+my $TEMP_ICON  = "\x{e01b}";
+my $MEM_ICON   = "\x{e021}";
+
+# should format the string
+sub frmt {
+     (my $color, my $str, my $font) = @_;
+
+     if ($font) {
+          return "%{F$color}%{T$font}$str%{T-}%{F-}";
+     }
+
+     return "%{F$color}$str%{F-}";
 }
 
-sub wms {
-     chomp(my $wmss = `bspc control --get-status`);
-     my ($mon, @wms) = split /:/, $wmss;
+## Widgets (section name borowed from awesome wm)
+# returns a list containing only the "active" desktops
+sub desktopwgt {
+     chomp(my $status = `bspc control --get-status`);
 
-     my $dsks = "";
-     foreach my $dis (@wms) {
-          given ($dis) {
-               when (/^o/) {
-                    $dsks .= " " . &clrds((substr $dis, 1), "#ff839496");
+     # mon (monitor); unused
+     # dskt (desktops); complete list of desktops and their status
+     my ($mon, @dskt) = split /:/, $status;
+
+     my $dstr = ""; # dstr (desktop string)
+     foreach my $e (@dskt) { # e (entry)
+          given ($e) {
+               when (/^o/) { # occupied desktop
+                    $dstr .= " " . &frmt($OCCUPIED_FG, (substr $e, 1), 2);
                }
-               when (/^[OF]/) {
-                    $dsks .= " " . &clrds((substr $dis, 1), "#fffafcfb");
+
+               when (/^[OF]/) { # focused desktop (occupied or not)
+                    $dstr .= " " . &frmt($NORMAL_FG, (substr $e, 1), 2);
                }
-               default { continue }
+
+               default { continue } # free desktops (not focused)
           }
      }
 
-     return $dsks;
+     return $dstr;
 }
 
-sub thrm {
+sub cpuloadwgt {
+     # adapted from meeting-at-the-bar
+     chomp(my $lines = `ps -eo pcpu,args |\
+                        grep -vE "^\\s*(0.0|%CPU)" |\
+                        awk -e '{print \$1}'`);
+
+     my $sum = 0;
+     foreach my $prtn (split /\n/, $lines) {
+          $sum += $prtn;
+     }
+
+     return sprintf("%s%s", &frmt($OCCUPIED_FG, $CPU_ICON, 2),
+                          , &frmt($NORMAL_FG, "$sum% ", 1));
+}
+
+sub thrmwgt {
      chomp(my $acpit = `acpi -t | awk '{ printf("%d\\n", \$4)}'`);
      my @thrm = split /\n/, $acpit;
 
@@ -35,22 +85,34 @@ sub thrm {
           $ft = $thrm[$i] if ($thrm[$i] > $ft);
      }
 
-     return sprintf("%s", &clrds("$ft °C ", "#fffafcfb")); # \u00b0
+     return sprintf("%s%s", &frmt($OCCUPIED_FG, $TEMP_ICON, 2)
+                          , &frmt($NORMAL_FG, "$ft\x{00b0}C ", 1));
 }
 
-sub umem {
+sub umemwgt {
      chomp(my $umem = `free -m | awk '/Mem/ { print \$3 }'`); # used memory
 
-     return sprintf("%s", "${umem}MB ");
+     return sprintf("%s%s", &frmt($OCCUPIED_FG, $MEM_ICON, 2) ,"${umem}MB ");
 }
 
-sub date {
-     chomp(my $date = `date +"%a %d %b %H:%M"`);
+sub datewgt {
+     # this format is needed due to, what seems tobe, encoding problems
+     chomp(my $ds = `date +"%a"`);
+     $ds = "Sáb" if $ds =~ /S*b/;
+     chomp($ds .= `date +", %d %b"`);
 
-     return &clrds($date, "#fffafcfb");
+     chomp(my $hour = `date +"%H:%M"`);
+
+     return sprintf("%s%s %s%s", &frmt($OCCUPIED_FG, $DATE_ICON, 2)
+                               , &frmt($NORMAL_FG, $ds, 1)
+                               , &frmt($OCCUPIED_FG, $CLOCK_ICON, 2)
+                               , &frmt($NORMAL_FG, $hour, 1));
 }
 
 while (1) {
-     say "%{l}", &wms, "%{c} ", &date, "%{r}", &thrm, &umem;
+     say "%{l}", desktopwgt,
+         "%{c}", &datewgt,
+         "%{r}", &cpuloadwgt, &thrmwgt, &umemwgt;
+
      sleep 1;
 }

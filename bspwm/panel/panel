@@ -5,9 +5,12 @@ if [ $(pgrep -xc panel) -gt 1 ]; then
      exit 1
 fi
 
+# some bar "gloabal" optios
 source $XDG_CONFIG_HOME/bspwm/panel/panel_cfg
 
+# "reserves" space for the bar
 bspc config top_padding $PANEL_HEIGHT
 
+# pipes info script return into the bar
 $XDG_CONFIG_HOME/bspwm/panel/info |\
-lemonbar -g x18 -f "${PANEL_FONT}" -B "#FF151515" -p
+lemonbar -g x$PANEL_HEIGHT -f ${PANEL_FONT1} -f "${PANEL_FONT2}" -B "${PANEL_BG}" -F "${PANEL_FG}" -p
