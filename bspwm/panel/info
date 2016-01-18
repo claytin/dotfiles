@@ -22,6 +22,11 @@ my $CLOCK_ICON = "\x{e015}";
 my $CPU_ICON   = "\x{e026}";
 my $TEMP_ICON  = "\x{e01b}";
 my $MEM_ICON   = "\x{e021}";
+my $AC_ICON    = "\x{e041}";
+my $BATL_ICON  = "\x{e1fd}";
+my $BATL_ICON  = "\x{e1fe}";
+my $BATL_ICON  = "\x{e1ff}";
+my $BATC_ICON  = "\x{e201}";
 
 # should format the string
 sub frmt {
@@ -61,6 +66,30 @@ sub desktopwgt {
      return $dstr;
 }
 
+sub datewgt {
+     # this format is needed due to, what seems tobe, encoding problems
+     chomp(my $ds = `date +"%a"`);
+     $ds = "Sáb" if $ds =~ /S*b/;
+     chomp($ds .= `date +", %d %b"`);
+
+     chomp(my $hour = `date +"%H:%M"`);
+
+     return sprintf("%s%s %s%s", &frmt($OCCUPIED_FG, $DATE_ICON, 2)
+                               , &frmt($NORMAL_FG, $ds, 1)
+                               , &frmt($OCCUPIED_FG, $CLOCK_ICON, 2)
+                               , &frmt($NORMAL_FG, $hour, 1));
+}
+
+sub energywgt {
+     chomp(my $acstat = `cat /sys/class/power_supply/A*/online`);
+
+     if ($acstat eq "1") { # ac connected
+          # missing charging checking
+          return sprintf("%s", &frmt($OCCUPIED_FG, $AC_ICON, 2));
+     } else { # on battery
+     }
+}
+
 sub cpuloadwgt {
      # adapted from meeting-at-the-bar
      chomp(my $lines = `ps -eo pcpu,args |\
@@ -95,24 +124,10 @@ sub umemwgt {
      return sprintf("%s%s", &frmt($OCCUPIED_FG, $MEM_ICON, 2) ,"${umem}MB ");
 }
 
-sub datewgt {
-     # this format is needed due to, what seems tobe, encoding problems
-     chomp(my $ds = `date +"%a"`);
-     $ds = "Sáb" if $ds =~ /S*b/;
-     chomp($ds .= `date +", %d %b"`);
-
-     chomp(my $hour = `date +"%H:%M"`);
-
-     return sprintf("%s%s %s%s", &frmt($OCCUPIED_FG, $DATE_ICON, 2)
-                               , &frmt($NORMAL_FG, $ds, 1)
-                               , &frmt($OCCUPIED_FG, $CLOCK_ICON, 2)
-                               , &frmt($NORMAL_FG, $hour, 1));
-}
-
 while (1) {
-     say "%{l}", desktopwgt,
+     say "%{l}", &desktopwgt,
          "%{c}", &datewgt,
-         "%{r}", &cpuloadwgt, &thrmwgt, &umemwgt;
+         "%{r}", &energywgt, &cpuloadwgt, &thrmwgt, &umemwgt;
 
      sleep 1;
 }
