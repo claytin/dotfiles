@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if [ $(pgrep -xc panel) -gt 1 ]; then
+     # kill panel insted
      printf "%s" "Panel already running." >&2
      exit 1
 fi

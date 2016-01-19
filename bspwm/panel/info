@@ -24,8 +24,8 @@ my $TEMP_ICON  = "\x{e01b}";
 my $MEM_ICON   = "\x{e021}";
 my $AC_ICON    = "\x{e041}";
 my $BATL_ICON  = "\x{e1fd}";
-my $BATL_ICON  = "\x{e1fe}";
-my $BATL_ICON  = "\x{e1ff}";
+my $BATM_ICON  = "\x{e1fe}";
+my $BATF_ICON  = "\x{e1ff}";
 my $BATC_ICON  = "\x{e201}";
 
 # should format the string
@@ -82,12 +82,28 @@ sub datewgt {
 
 sub energywgt {
      chomp(my $acstat = `cat /sys/class/power_supply/A*/online`);
+     chomp(my $batstat = `cat /sys/class/power_supply/B*/status`);
 
-     if ($acstat eq "1") { # ac connected
-          # missing charging checking
-          return sprintf("%s", &frmt($OCCUPIED_FG, $AC_ICON, 2));
-     } else { # on battery
+     if ($acstat eq "0") { # ac not connected
+          chomp(my $cfull = `cat /sys/class/power_supply/B*/charge_full`);
+          chomp(my $cnow = `cat /sys/class/power_supply/B*/charge_now`);
+
+          my $batprcnt = (100 * $cnow) / $cfull;
+
+          if ($batprcnt <= 33) {
+               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATL_ICON, 2)
+                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+          } elsif ($batprcnt <= 66) {
+               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATM_ICON, 2)
+                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+          } else {
+               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATF_ICON, 2)
+                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+          }
      }
+
+     return &frmt($OCCUPIED_FG, $BATC_ICON, 2) if ($batstat eq "Charging");
+     return &frmt($OCCUPIED_FG, $AC_ICON, 2);
 }
 
 sub cpuloadwgt {
