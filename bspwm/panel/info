@@ -80,16 +80,25 @@ sub datewgt {
                                , &frmt($NORMAL_FG, $hour, 1));
 }
 
+sub netwgt { }
+
 sub energywgt {
      chomp(my $acstat = `cat /sys/class/power_supply/A*/online`);
      chomp(my $batstat = `cat /sys/class/power_supply/B*/status`);
 
-     if ($acstat eq "0") { # ac not connected
-          chomp(my $cfull = `cat /sys/class/power_supply/B*/charge_full`);
-          chomp(my $cnow = `cat /sys/class/power_supply/B*/charge_now`);
+     chomp(my $cfull = `cat /sys/class/power_supply/B*/charge_full`);
+     chomp(my $cnow = `cat /sys/class/power_supply/B*/charge_now`);
 
-          my $batprcnt = (100 * $cnow) / $cfull;
+     my $batprcnt = (100 * $cnow) / $cfull;
 
+     if ($acstat eq "1") { # ac connected
+          if ($batstat eq "Charging") {
+               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATC_ICON, 2)
+                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+          }
+
+          return &frmt($OCCUPIED_FG, $AC_ICON, 2);
+     } else {
           if ($batprcnt <= 33) {
                return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATL_ICON, 2)
                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
@@ -101,9 +110,6 @@ sub energywgt {
                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
           }
      }
-
-     return &frmt($OCCUPIED_FG, $BATC_ICON, 2) if ($batstat eq "Charging");
-     return &frmt($OCCUPIED_FG, $AC_ICON, 2);
 }
 
 sub cpuloadwgt {
