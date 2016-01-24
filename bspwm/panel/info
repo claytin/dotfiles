@@ -4,8 +4,7 @@ use 5.020;
 use warnings;
 
 ## TODO
-## add wifi
-## add battery
+## add network
 
 ## Colors
 my $NORMAL_FG = "#e3e5e3";
@@ -67,9 +66,9 @@ sub desktopwgt {
 }
 
 sub datewgt {
-     # this format is needed due to, what seems tobe, encoding problems
+     # this format is needed due to, what seems to be, encoding problems
      chomp(my $ds = `date +"%a"`);
-     $ds = "Sáb" if $ds =~ /S*b/;
+     $ds = "S\x{00e1}b" if $ds =~ /S*b/;
      chomp($ds .= `date +", %d %b"`);
 
      chomp(my $hour = `date +"%H:%M"`);
