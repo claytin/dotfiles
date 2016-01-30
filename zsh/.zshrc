@@ -31,6 +31,8 @@ source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
 
+[[ -f $HOME/.zlaptop ]] && source $HOME/.zlaptop
+
 # helps with colors on prompt
 autoload -U colors
 colors
