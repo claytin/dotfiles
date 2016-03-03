@@ -86,6 +86,7 @@ nnoremap <localleader>y gUiwea
 set shell=/bin/zsh
 
 set encoding=utf-8
+scriptencoding utf-8
 
 " behaves like vim (not compatible with vi)
 set nocompatible
@@ -99,36 +100,6 @@ set autowrite
 
 " always display status line
 set laststatus=2
-" status line format
-function! WMode()
-     let m=mode()
-
-     if m == 'i'
-          return 'INSERT'
-     elseif m == 'v'
-          return 'VISUAL'
-     elseif m == 'r'
-          return 'REPLACE'
-     endif
-
-     return 'NORMAL'
-endfunction
-
-" separator char is \u2502
-set statusline=\ [%n]\ │            " buffer number + separator
-set statusline+=\ %{WMode()}\ │     " mode + separator
-set statusline+=\ %t\ │             " file name + separator
-set statusline+=\ %h                " help flag
-set statusline+=%r                  " read only flag
-set statusline+=%m                  " modified (if not possible '-') flag
-set statusline+=%=                  " go right
-set statusline+=│\ %{&ff}\          " file format
-set statusline+=│\ %{strlen(&fenc)?&fenc:'none'}\  " file encoding
-set statusline+=│\ %{strlen(&ft)?&ft:'no\ ft'}\    " file type
-set statusline+=│\ %p\%%\           " percentage through file
-set statusline+=│\ [%L]             " total lines
-set statusline+=%l                  " current line
-set statusline+=:%c\                " current column
 
 " set cmd line height to 1
 set cmdheight=1
@@ -215,3 +186,39 @@ if has('gui_running')
      " geometry
      set lines=30 columns=120
 endif
+
+" Plugins (plug-vim)
+call plug#begin()
+" status line plugin
+Plug 'itchyny/lightline.vim'
+call plug#end()
+
+" status line
+let g:lightline = {
+     \ 'colorscheme': 'jellybeans',
+     \ 'active': {
+          \ 'left': [ ['mode'],
+                    \ ['readonly', 'filename', 'modified'] ]
+          \ },
+     \ 'component': {
+          \ 'mode': '#%n %{WMode()}',
+          \ 'readonly': '%{&readonly?"RO":""}',
+          \ 'lineinfo': '[%L]%l:%c'
+          \ },
+     \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
+     \ 'subseparator': { 'left': "▒", 'right': "░"}
+     \ }
+
+function! WMode()
+     let m=mode()
+
+     if m == 'i'
+          return 'INSERT'
+     elseif m == 'v'
+          return 'VISUAL'
+     elseif m == 'r'
+          return 'REPLACE'
+     endif
+
+     return 'NORMAL'
+endfunction
