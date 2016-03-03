@@ -52,3 +52,42 @@ URxvt.cursorUnderline: true
 URxvt.visualBell:      false
 
 URxvt.font:            xft:tewi
+
+!! Old color scheme will be kept around, just in case
+! special
+!*.foreground:   #e2e5e3
+!*.background:   #151515
+!*.cursorColor:  #fafcfb
+
+! black
+!*.color0:       #28383d
+!*.color8:       #586e75
+
+! red
+!*.color1:       #e05959
+!*.color9:       #e86a6a
+
+! green
+!*.color2:       #b9c655
+!*.color10:      #abc15d
+
+! yellow
+!*.color3:       #a77f3c
+!*.color11:      #aa8444
+
+! blue
+!*.color4:       #4d91c0
+!*.color12:      #519fd4
+
+! magenta
+!*.color5:       #ec7cb3
+!*.color13:      #f088ba
+
+! cyan
+!*.color6:       #4ec9bf
+!*.color14:      #6bdcd2
+
+! white
+!*.color7:       #839496
+!*.color15:      #c5c8c6
+
