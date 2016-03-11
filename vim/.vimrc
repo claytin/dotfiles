@@ -200,6 +200,9 @@ let g:lightline = {
           \ 'left': [ ['mode'],
                     \ ['readonly', 'filename', 'modified'] ]
           \ },
+     \ 'inactive': {
+          \ 'left': [ ['readonly', 'filename', 'modified'] ]
+          \ },
      \ 'component': {
           \ 'mode': '#%n %{WMode()}',
           \ 'readonly': '%{&readonly?"RO":""}',
