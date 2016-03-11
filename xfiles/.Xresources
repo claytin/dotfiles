@@ -8,32 +8,32 @@
 *.color8:       #505558
 
 ! red
-*.color1:       #c75049
-*.color9:       #e86869
+*.color1:       #de6053
+*.color9:       #f07a70
 
 ! green
-*.color2:       #9cb33b
-*.color10:      #cdee69
+*.color2:       #accc65
+*.color10:      #c1e066
 
 ! yellow
-*.color3:       #d0b03c
-*.color11:      #ffe377
+*.color3:       #dda060
+*.color11:      #ddb26f
 
 ! blue
-*.color4:       #72b3cc
-*.color12:      #9cd9f0
+*.color4:       #69a2cd
+*.color12:      #70b2d0
 
 ! magenta
-*.color5:       #c9a0d0
+*.color5:       #e1a3ee
 *.color13:      #fbb1f9
 
 ! cyan
-*.color6:       #209ea6
+*.color6:       #12cfc0
 *.color14:      #77dfd8
 
 ! white
 *.color7:       #b0b5b8
-*.color15:      #f0f0f0
+*.color15:      #f5f5f5
 
 ! Fonts
 Xft.dpi:       96
