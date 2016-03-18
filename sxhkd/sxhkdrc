@@ -8,30 +8,26 @@ ctrl + alt + x
 
 # close focused window
 ctrl + alt + q
-     bspc window -c
+     bspc node -c
 
-# try to balance space occupied by the windows
-ctrl+ alt + b
-    bspc desktop -B
-
-shift + alt + {s,f}
-	bspc window -t {floating,fullscreen}
+shift + alt + {t,s,f}
+	bspc node -t {tiled,floating,fullscreen}
 
 # move windows around on current layout
 shift + alt + {h,j,k,l}
-	bspc window -s {left,down,up,right}
+	bspc node -s {west,south,north,east}
 
 # focus (cycle) windows
 alt + {j,k}
-     bspc window -f {next,prev}
+     bspc node -f {next,prev}
 
 # cycle leafs of current layout
 ctrl + alt + {comma,period}
-     bspc desktop -C {backward,forward}
+     bspc desktop -f {next,prev}
 
 # set preselection
 ctrl + alt + {h,j,k,l,space}
-     bspc window -p {left,down,up,right,cancel}
+     bspc node -p {west,south,north,east,cancel}
 
 # resize
 shift + alt + {Left,Down,Up,Right}
@@ -46,7 +42,7 @@ alt + {1-9,0}
 
 # moves window to the Nth desktop
 shift + alt + {1-9,0}
-     bspc window -d ^{1-9,10}
+     bspc node -d ^{1-9,10}
 
 # mouse actions
 ~button1
@@ -54,9 +50,6 @@ shift + alt + {1-9,0}
 
 alt + button{1-3}
      bspc pointer -g {move,resize_side,resize_corner}
-
-alt + !button{1-3}
-     super pointer -t %i %i
 
 alt + @button{1-3}
      bspc pointer -u
