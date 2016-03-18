@@ -47,6 +47,7 @@ Xft.lcdfilter: lcddefault
 URxvt.depth:           32
 
 URxvt.geometry:        107x32
+URxvt.lineSpace:       1.5
 
 URxvt.borderLess:      false
 URxvt.externalBorder:  0
