@@ -41,7 +41,7 @@ sub frmt {
 ## Widgets (section name borowed from awesome wm)
 # returns a list containing only the "active" desktops
 sub desktopwgt {
-     chomp(my $status = `bspc control --get-status`);
+     chomp(my $status = `bspc wm -g`);
 
      # mon (monitor); unused
      # dskt (desktops); complete list of desktops and their status
@@ -58,7 +58,7 @@ sub desktopwgt {
                     $dstr .= " " . &frmt($NORMAL_FG, (substr $e, 1), 2);
                }
 
-               default { continue } # free desktops (not focused)
+               default { continue } # not focused free desktops and some trash
           }
      }
 
