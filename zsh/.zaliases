@@ -24,7 +24,6 @@ alias vi="vim"
 alias j="jobs -l"
 alias df="df -h"     # human-readable sizes
 alias free="free -m" # size in MB
-alias mp="mplayer"
 
 # better cp behavior
 alias cp="cp -i" # asks before overriting
@@ -38,4 +37,7 @@ alias gpush="git push"
 alias gcout="git checkout"
 alias gmrge="git merge"
 alias gdiff="git diff"
+alias gclo="git clone"
+alias gcko="git checkout"
 alias gadd="git add"
+alias glog="git log"
