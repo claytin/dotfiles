@@ -14,4 +14,4 @@ bspc config top_padding $PANEL_HEIGHT
 
 # pipes info script return into the bar
 $XDG_CONFIG_HOME/bspwm/panel/info |\
-lemonbar -g x$PANEL_HEIGHT -f ${PANEL_FONT1} -f "${PANEL_FONT2}" -B "${PANEL_BG}" -F "${PANEL_FG}" -p
+lemonbar -g x$PANEL_HEIGHT -f "$PANEL_FONT1" -f "$PANEL_FONT2" -B "$PANEL_BG" -F "$PANEL_FG" -p
