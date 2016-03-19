@@ -1,0 +1,50 @@
+[options]
+
+font                = tewi 8
+geometry            = 660x420
+cursor_shape        = underline
+scroll_on_output    = false
+scroll_on_keystroke = true
+mouse_autohide      = true
+clickablr_url       = true
+scrollback_lines    = 1000
+
+[colors]
+
+# special
+foreground      = #f0f0f0
+foreground_bold = #f0f0f0
+background      = #151515
+cursor          = #f0f0f0
+
+# black
+color0  = #151515
+color8  = #505558
+
+# red
+color1  = #de6053
+color9  = #f07a70
+
+# green
+color2  = #accc65
+color10 = #c1e066
+
+# yellow
+color3  = #dda060
+color11 = #ddb26f
+
+# blue
+color4  = #69a2cd
+color12 = #70b2d0
+
+# magenta
+color5  = #e1a3ee
+color13 = #fbb1f9
+
+# cyan
+color6  = #12cfc0
+color14 = #77dfd8
+
+# white
+color7  = #b0b5b8
+color15 = #f5f5f5
