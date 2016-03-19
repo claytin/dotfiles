@@ -1,0 +1,7 @@
+/* termite gap (general vte terminals gap) */
+VteTerminal {
+     padding-left:   8px;
+     padding-right:  6px;
+     padding-top:    8px;
+     padding-bottom: 4px;
+}
