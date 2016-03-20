@@ -12,13 +12,19 @@ bspc config focus_by_distance   true
 bspc config focus_follows_pointer true
 
 # monitor list; unicode icons
-bspc monitor -d $(echo -ne "\ue26d") \
+bspc monitor -d $(echo -ne "\ue1bf") \
 $(echo -ne "\ue1ed") \
 $(echo -ne "\ue1ec") \
 $(echo -ne "\ue1dd") \
+$(echo -ne "\ue02b") \
 $(echo -ne "\ue1e6") \
 
 # rules
+bspc rule -a Thunar state=floating
+bspc rule -a Firefox desktop="^1"
+bspc rule -a Ncmpcpp desktop="^4" state=floating
+bspc rule -a Alsamixer desktop="^4" state=floating
+bspc rule -a Htop state=floating
 
 # autostart
 $HOME/.fehbg
