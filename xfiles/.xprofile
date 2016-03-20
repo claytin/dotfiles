@@ -4,4 +4,4 @@ if [ $HOST == "Z0" ]; then
 fi
 
 # start compositor
-compton -cbf -o 0.44 -r 8 -t -10 -l -13 -D 5 --backend glx --vsync opengl &
+compton -cCf -o 0.48 -r 10 -t 3 -l -10 -D 5 --backend glx --vsync opengl -b
