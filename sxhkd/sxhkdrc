@@ -69,16 +69,16 @@ ctrl + alt + f
      thunar
 
 ctrl + alt + m
-     termite -e ncmpcpp
+     termite --class=Ncmpcpp -e ncmpcpp
 
 ctrl + alt + a
-     termite -e alsamixer
+     termite --class=Alsamixer -e alsamixer
 
 ctrl + alt + c
-     termite -e htop
+     termite --class=Htop -e htop
 
 alt + F2
-     dmenu_run
+     $XDG_CONFIG_HOME/dmenu/dmenu-bind
 
 # make sxhkd reload its configuration files:
 ctrl + alt + y
