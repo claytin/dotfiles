@@ -205,7 +205,7 @@ let g:lightline = {
           \ },
      \ 'component': {
           \ 'mode': '#%n %{WMode()}',
-          \ 'readonly': '%{&readonly?"RO":""}',
+          \ 'readonly': '%{&readonly?"⭤":""}',
           \ 'lineinfo': '[%L]%l:%c'
           \ },
      \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
