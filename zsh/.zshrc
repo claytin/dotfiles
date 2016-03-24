@@ -41,8 +41,19 @@ colors
 bindkey -v
 export KEYTIMEOUT=1
 
-# prompt
-SCHAR="\u03bb"
-PROMPT="%F{magenta}$(echo -ne $SCHAR)%f "
+zle -N zle-line-init
+zle -N zle-keymap-select
 
+function zle-line-init zle-keymap-select {
+     local UBOX="┌"
+     local LBOX="└"
+
+     PROMPT="${UBOX} $(prologue)"$'\n'"${LBOX} $(vcs_info)$(cst_pc)" # why zsh
+
+     zle reset-prompt
+}
+
+PROMPT="%F{green}❭❭%f " # there is some delay when using %{%}, so ...
+
+# path
 export PATH=$PATH:~/.rakudobrew/bin
