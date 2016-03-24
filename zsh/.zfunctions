@@ -1,33 +1,90 @@
-# extracts diferent types of compressed files
-function ex {
-     if [ -f $1 ]; then
-          case $1 in
-               (*.tar.bz2) tar xjf $1
-                    ;;
-               (*.tar.gz)  tar xzf $1
-                    ;;
-               (*.bz2)     bunzip2 $1
-                    ;;
-               (*.rar)     unrar x $1
-                    ;;
-               (*.gz)      gunzip $1
-                    ;;
-               (*.tar)     tar xf $1
-                    ;;
-               (*.tbz2)    tar xjf $1
-                    ;;
-               (*.tgz)     tar xzf $1
-                    ;;
-               (*.zip)     unzip $1
-                    ;;
-               (*.z)       uncompress $1
-                    ;;
-               (*.7z)      7z x $1
-                    ;;
-               (*)         print "$1 cannot be extracted via ex()"
-                    ;;
-          esac
+## prompt
+# collects git info
+function git_info {
+     local ginf_str="%{\e[34;1m%}$(basename $1)/%{\e[0m%} on "
+
+     # wich branch is this?
+     local branch=$(git branch | grep \*)
+     ginf_str="${ginf_str}%{\e[96m%}${branch/#"* "/""}%{\e[0m%}"
+
+     # there are modified files?
+     local mods=$(git status -s | wc -l)
+     [[ $mods -gt 0 ]] && ginf_str="${ginf_str}%{\e[36m%}*%{\e[0m%}"
+
+     echo "${ginf_str} "
+}
+
+# collects git info
+function merc_info {
+     local minf_str="%{\e[34;1m%}$(basename $1)/%{\e[0m%} on "
+
+     # wich branch is this?
+     minf_str="${minf_str}%{\e[96m%}$(hg branch)%{\e[0m%}"
+
+     # there are modified files?
+     local mods=$(hg status | wc -l)
+     [[ $mods -gt 0 ]] && minf_str="${minf_str}%{\e[36m%}*%{\e[0m%}"
+
+     echo "${minf_str} "
+}
+
+# collects vcs info
+function vcs_info {
+     local rep
+
+     # git
+     local GIT_PROMPT_CHAR="±" # actually two chars
+
+     rep="$(git rev-parse --show-toplevel 2>/dev/null)"
+     if [[ ! -z $rep ]]; then
+          echo -ne "%{\e[95m%}${GIT_PROMPT_CHAR}%{\e[0m%} $(git_info $rep)"
+          return
+     fi
+
+     # mercury
+     local MERC_PROMPT_CHAR="☿"
+
+     rep="$(hg root 2>/dev/null)"
+     if [[ ! -z $rep ]]; then
+          echo -ne "%{\e[95m%}${MERC_PROMPT_CHAR}%{\e[0m%} $(merc_info $rep)"
+          return
+     fi
+}
+
+# checks if there are suspended jobs, and returns the color of the prompt char
+# to be displayed
+function j_info {
+     local PROMPT_CHAR="❭"
+
+     local js="$(jobs | wc -l)"
+
+     [[ $js -gt 0 ]] && echo -ne "%{\e[93m%}" && return
+
+     echo -ne $1
+}
+
+# display prompt chars colored based on the keymap and jobs
+function cst_pc {
+     local PROMPT_CHAR="❭"
+
+     local clr
+     local km="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+
+     # var = expr ? case1 : case2
+     [[ $km == "NORMAL" ]] && clr="%{\e[35m%}" || clr="%{\e[32m%}"
+
+     echo -ne "$(j_info $clr)${PROMPT_CHAR}${clr}${PROMPT_CHAR}%{\e[0m%} "
+}
+
+# display pwd fitted to terminal length
+function prologue {
+     local pwd_sz=${#${"${PWD/#$HOME/~}"}}
+
+     if [[ $pwd_sz -gt $COLUMNS ]]; then # dir path to long
+          local offset=$(( $pwd_sz - $COLUMNS + 6))
+
+          echo "%{\e[37m%}%{\e[4m%}... ${${PWD/#$HOME/~}:$offset}%{\e[0m%}"
      else
-          print "$1 is not a valid file"
+          echo "%{\e[37m%}%{\e[4m%}${PWD/#$HOME/~}%{\e[0m%}"
      fi
 }
