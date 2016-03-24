@@ -31,7 +31,7 @@ alias cp="cp -i" # asks before overriting
 # git
 alias gstat="git status"
 alias gbran="git branch"
-alias gcmmt="git commit -m"
+alias gcmmt="git commit"
 alias gpull="git pull"
 alias gpush="git push"
 alias gcout="git checkout"
