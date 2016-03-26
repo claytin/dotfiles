@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use 5.020;
+use warnings;
+
+## setup "constants"
+# font
+my $DM_FONT = '"tewi:8"';
+
+# colors
+my $DM_NBG = '"#f5f5f5"';
+my $DM_NFG = '"#151515"';
+my $DM_SBG = '"#505558"';
+my $DM_SFG = '"#f0f0f0"';
+
+# dimensions
+my $DM_WIDTH  = 300;
+my $DM_HEIGHT = 18;
+
+# misc
+my $DM_DIM   = 0.25;
+my $DM_LINES = 4;
+
+sub dm_run {
+     chomp(my $res = `xrandr | grep "*" | awk -e '{ print \$1 }'`);
+     (my $w, my $h) = split /x/, $res;
+
+     my $x_offset = int(($w - $DM_WIDTH) / 2);
+     my $y_offset = int(($h - ($DM_LINES - 1) * $DM_HEIGHT) / 2);
+
+     say($DM_NBG);
+
+     my $exe = "dmenu_run"; # prefix of dmenu cmd to be run
+     $exe .= " -fn $DM_FONT -w $DM_WIDTH -h $DM_HEIGHT";
+     $exe .= " -nf $DM_NFG -nb $DM_NBG -sf $DM_SFG -sb $DM_SBG";
+     $exe .= " -x $x_offset -y $y_offset";
+     $exe .= " -l $DM_LINES -dim $DM_DIM";
+
+     # finaly run dmenu
+     `$exe`;
+}
+
+
+&dm_run if (__FILE__ eq $0);
