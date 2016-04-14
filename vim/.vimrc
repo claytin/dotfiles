@@ -187,7 +187,7 @@ if has('gui_running')
      set lines=30 columns=120
 endif
 
-" Plugins (plug-vim)
+" Plugins (vim-plug)
 call plug#begin()
 " status line plugin
 Plug 'itchyny/lightline.vim'
