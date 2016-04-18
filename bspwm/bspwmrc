@@ -21,7 +21,7 @@ $(echo -ne "\ue1e6") \
 
 # rules
 bspc rule -a Thunar state=floating
-bspc rule -a chromium desktop="^1"
+bspc rule -a Firefox desktop="^1"
 bspc rule -a Ncmpcpp desktop="^4" state=floating
 bspc rule -a Alsamixer desktop="^4" state=floating
 bspc rule -a Htop state=floating
