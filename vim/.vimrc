@@ -167,7 +167,10 @@ set showbreak=↳
 syntax enable
 
 " color scheme
-colorscheme jellybeans
+set background=dark
+colorscheme seoul256
+let g:seoul256_background=233
+colo seoul256
 
 " gui opts (gvim)
 if has('gui_running')
@@ -195,7 +198,7 @@ call plug#end()
 
 " status line
 let g:lightline = {
-     \ 'colorscheme': 'jellybeans',
+     \ 'colorscheme': 'seoul256',
      \ 'active': {
           \ 'left': [ ['mode'],
                     \ ['readonly', 'filename', 'modified'] ]
@@ -205,7 +208,7 @@ let g:lightline = {
           \ },
      \ 'component': {
           \ 'mode': '#%n %{WMode()}',
-          \ 'readonly': '%{&readonly?"⭤":""}',
+          \ 'readonly': '%{&readonly?"":""}',
           \ 'lineinfo': '[%L]%l:%c'
           \ },
      \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
