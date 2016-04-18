@@ -45,10 +45,7 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 function zle-line-init zle-keymap-select {
-     local UBOX="┌"
-     local LBOX="└"
-
-     PROMPT="${UBOX} $(prologue)"$'\n'"${LBOX} $(vcs_info)$(cst_pc)" # why zsh
+     PROMPT="$(prologue)"$'\n'"$(vcs_info)$(cst_pc)" # why zsh
 
      zle reset-prompt
 }
@@ -56,4 +53,4 @@ function zle-line-init zle-keymap-select {
 PROMPT="%F{green}❭❭%f " # there is some delay when using %{%}, so ...
 
 # path
-export PATH=$PATH:~/.rakudobrew/bin
+export PATH=$PATH:/opt/rakudo-star-2016.01/bin
