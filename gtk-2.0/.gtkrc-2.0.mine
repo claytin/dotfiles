@@ -1,6 +1,6 @@
 # theme/icon theme
 gtk-theme-name = "Arc"
-gtk-icon-theme-name = "Ozon"
+gtk-icon-theme-name = "Vertex"
 
 # font
 style "user-font" {
