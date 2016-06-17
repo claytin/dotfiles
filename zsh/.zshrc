@@ -53,4 +53,4 @@ function zle-line-init zle-keymap-select {
 PROMPT="%F{green}❭❭%f " # there is some delay when using %{%}, so ...
 
 # path
-export PATH=$PATH:/opt/rakudo-star-2016.01/bin
+export PATH=$PATH:/opt/rakudo-star-2016.04/bin:/opt/rakudo-star-2016.04/share/perl6/site/bin:/bin:/opt/magnet
