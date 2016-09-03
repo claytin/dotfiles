@@ -215,6 +215,9 @@ let g:lightline = {
      \ 'subseparator': { 'left': "▒", 'right': "░"}
      \ }
 
+" manualy added plugins autoload
+set runtimepath^=~/.vim/bundle/vim-apl/
+
 function! WMode()
      let m=mode()
 
