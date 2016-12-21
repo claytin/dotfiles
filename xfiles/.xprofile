@@ -1,2 +1,8 @@
 # start compositor
 compton -cCf -o 0.48 -r 10 -t 3 -l -10 -D 5 --backend glx --vsync opengl -b
+
+# japanese input
+export GTK_IM_MODULE="uim"
+export QT_IM_MODULE="uim"
+uim-xim &
+export XMODIFIERS=@im=uim
