@@ -19,7 +19,7 @@ shift + alt + {h,j,k,l}
 
 # focus (cycle) windows
 alt + {j,k}
-     bspc node -f {next,prev}
+     bspc node -f {next,prev}.local
 
 # cycle leafs of current layout
 ctrl + alt + {comma,period}
@@ -44,21 +44,8 @@ alt + {1-9,0}
 shift + alt + {1-9,0}
      bspc node -d ^{1-9,10}
 
-# mouse actions
-~button1
-     bspc pointer -g focus
-
-alt + button{1-3}
-     bspc pointer -g {move,resize_side,resize_corner}
-
-alt + @button{1-3}
-     bspc pointer -u
-
-#
 # wm independent hotkeys
 #
-
-# super + Return
 ctrl + alt + t
      termite -e "zsh -c tmux"
 
