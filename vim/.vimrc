@@ -160,8 +160,8 @@ set number
 set cursorline
 " hidden chars
 set list
-set listchars=tab:‣\ ,eol:¬,trail:·,nbsp:·
-set showbreak=↳
+set listchars=tab:»\ ,eol:¬,trail:·,nbsp:·
+set showbreak=└
 
 " syntax
 syntax enable
@@ -197,6 +197,7 @@ Plug 'itchyny/lightline.vim'
 call plug#end()
 
 " status line
+" the (r)h(o) stands for (r)ead (o)nly
 let g:lightline = {
      \ 'colorscheme': 'seoul256',
      \ 'active': {
@@ -208,7 +209,7 @@ let g:lightline = {
           \ },
      \ 'component': {
           \ 'mode': '#%n %{WMode()}',
-          \ 'readonly': '%{&readonly?"":""}',
+          \ 'readonly': '%{&readonly?"ρ":""}',
           \ 'lineinfo': '[%L]%l:%c'
           \ },
      \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
