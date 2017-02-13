@@ -47,7 +47,8 @@ Xft.lcdfilter: lcddefault
 URxvt.depth:           32
 
 URxvt.geometry:        107x32
-URxvt.lineSpace:       1.5
+URxvt.letterSpace:     0
+URxvt.lineSpace:       -1
 
 URxvt.borderLess:      false
 URxvt.externalBorder:  0
@@ -59,4 +60,4 @@ URxvt.cursorBlink:     true
 URxvt.cursorUnderline: true
 URxvt.visualBell:      false
 
-URxvt.font:            xft:tewi
+URxvt.font:            xft:tamsyn:size=10
