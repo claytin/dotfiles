@@ -1,5 +1,5 @@
 ! special
-*.foreground:   #f0f0f0
+*.foreground:   #fafafa
 *.background:   #151515
 *.cursorColor:  #f0f0f0
 
@@ -60,4 +60,4 @@ URxvt.cursorBlink:     true
 URxvt.cursorUnderline: true
 URxvt.visualBell:      false
 
-URxvt.font:            xft:tamsyn:size=10
+URxvt.font:            xft:tewi:pixelsize=11
