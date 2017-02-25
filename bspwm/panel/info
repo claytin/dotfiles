@@ -1,7 +1,15 @@
 #!/usr/bin/env perl
 
 use 5.020;
+
+# better encoding support; seems to make the script less efficient
+use utf8;
+use Encode; # input from bspc needs to be decoded
+
 use warnings;
+
+# gets rid of some warnig regarding encoding of large characters
+binmode STDOUT, ":encoding(UTF-8)";
 
 ## TODO
 ## add network
@@ -12,20 +20,18 @@ my $NORMAL_BG = "#151515";
 
 my $OCCUPIED_FG = "#ff839496";
 
-## Font Slots
-## The assigned fonts can be found in ./panel_cfg
-
 ## Icons/Glyphs
-my $DATE_ICON  = "\x{e266}";
-my $CLOCK_ICON = "\x{e015}";
-my $CPU_ICON   = "\x{e026}";
-my $TEMP_ICON  = "\x{e01b}";
-my $MEM_ICON   = "\x{e021}";
-my $AC_ICON    = "\x{e041}";
-my $BATL_ICON  = "\x{e1fd}";
-my $BATM_ICON  = "\x{e1fe}";
-my $BATF_ICON  = "\x{e1ff}";
-my $BATC_ICON  = "\x{e201}";
+my $DATE_ICON  = ""; # e266
+my $CLOCK_ICON = ""; # e015
+my $CPU_ICON   = ""; # e026
+my $TEMP_ICON  = ""; # e01b
+my $MEM_ICON   = ""; # e021
+my $AC_ICON    = ""; # e041
+my $BATL_ICON  = ""; # e1fd
+my $BATM_ICON  = ""; # e1fe
+my $BATF_ICON  = ""; # e1ff
+my $BATC_ICON  = ""; # e201
+
 
 # should format the string
 sub frmt {
@@ -49,16 +55,18 @@ sub desktopwgt {
 
      my $dstr = ""; # dstr (desktop string)
      foreach my $e (@dskt) { # e (entry)
-          given ($e) {
-               when (/^o/) { # occupied desktop
-                    $dstr .= " " . &frmt($OCCUPIED_FG, (substr $e, 1), 2);
+          for ($e) {
+               if (/^o/) { # occupied desktop
+                    $dstr .= " " . &frmt( $OCCUPIED_FG
+                                        , decode("UTF-8", substr $e, 1), 2);
                }
 
-               when (/^[OF]/) { # focused desktop (occupied or not)
-                    $dstr .= " " . &frmt($NORMAL_FG, (substr $e, 1), 2);
+               if (/^[OF]/) { # focused desktop (occupied or not)
+                    $dstr .= " " . &frmt( $NORMAL_FG
+                                        , decode("UTF-8", substr $e, 1), 2);
                }
 
-               default { continue } # not focused free desktops and some trash
+               # no focused free desktops and some trash
           }
      }
 
@@ -68,15 +76,15 @@ sub desktopwgt {
 sub datewgt {
      # this format is needed due to, what seems to be, encoding problems
      chomp(my $ds = `date +"%a"`);
-     $ds = "S\x{00e1}b" if $ds =~ /S*b/;
+     # $ds = "S\x{00e1}b" if $ds =~ /S*b/; # 00e1
      chomp($ds .= `date +", %d %b"`);
 
      chomp(my $hour = `date +"%H:%M"`);
 
-     return sprintf("%s%s %s%s", &frmt($OCCUPIED_FG, $DATE_ICON, 2)
-                               , &frmt($NORMAL_FG, $ds, 1)
-                               , &frmt($OCCUPIED_FG, $CLOCK_ICON, 2)
-                               , &frmt($NORMAL_FG, $hour, 1));
+     return sprintf("%s %s %s %s", &frmt($OCCUPIED_FG, $DATE_ICON, 2)
+                                 , &frmt($NORMAL_FG, $ds, 1)
+                                 , &frmt($OCCUPIED_FG, $CLOCK_ICON, 2)
+                                 , &frmt($NORMAL_FG, $hour, 1));
 }
 
 sub netwgt { }
@@ -92,21 +100,21 @@ sub energywgt {
 
      if ($acstat eq "1") { # ac connected
           if ($batstat eq "Charging") {
-               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATC_ICON, 2)
-                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+               return sprintf("%s %s ", &frmt($OCCUPIED_FG, $BATC_ICON, 2)
+                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
           }
 
-          return &frmt($OCCUPIED_FG, $AC_ICON, 2);
+          return &frmt($OCCUPIED_FG, "$AC_ICON ", 2);
      } else {
           if ($batprcnt <= 33) {
-               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATL_ICON, 2)
-                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+               return sprintf("%s %s ", &frmt($OCCUPIED_FG, $BATL_ICON, 2)
+                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
           } elsif ($batprcnt <= 66) {
-               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATM_ICON, 2)
-                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+               return sprintf("%s %s ", &frmt($OCCUPIED_FG, $BATM_ICON, 2)
+                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
           } else {
-               return sprintf("%s%s ", &frmt($OCCUPIED_FG, $BATF_ICON, 2)
-                                     , &frmt($NORMAL_FG, "$batprcnt%", 1));
+               return sprintf("%s %s ", &frmt($OCCUPIED_FG, $BATF_ICON, 2)
+                                      , &frmt($NORMAL_FG, "$batprcnt%", 1));
           }
      }
 }
@@ -122,8 +130,8 @@ sub cpuloadwgt {
           $sum += $prtn;
      }
 
-     return sprintf("%s%s", &frmt($OCCUPIED_FG, $CPU_ICON, 2),
-                          , &frmt($NORMAL_FG, "$sum% ", 1));
+     return sprintf("%s %s", &frmt($OCCUPIED_FG, $CPU_ICON, 2),
+                           , &frmt($NORMAL_FG, "$sum% ", 1));
 }
 
 sub thrmwgt {
@@ -135,14 +143,14 @@ sub thrmwgt {
           $ft = $thrm[$i] if ($thrm[$i] > $ft);
      }
 
-     return sprintf("%s%s", &frmt($OCCUPIED_FG, $TEMP_ICON, 2)
-                          , &frmt($NORMAL_FG, "$ft\x{00b0}C ", 1));
+     return sprintf("%s %s", &frmt($OCCUPIED_FG, $TEMP_ICON, 2)
+                           , &frmt($NORMAL_FG, "$ft°C ", 1));
 }
 
 sub umemwgt {
      chomp(my $umem = `free -m | awk '/Mem/ { print \$3 }'`); # used memory
 
-     return sprintf("%s%s", &frmt($OCCUPIED_FG, $MEM_ICON, 2) ,"${umem}MB ");
+     return sprintf("%s %s", &frmt($OCCUPIED_FG, $MEM_ICON, 2) ,"${umem}MB ");
 }
 
 while (1) {
