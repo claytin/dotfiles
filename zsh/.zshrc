@@ -50,7 +50,7 @@ function zle-line-init zle-keymap-select {
      zle reset-prompt
 }
 
-PROMPT="%F{green}❭❭%f " # there is some delay when using %{%}, so ...
+PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
 
 # Perl6
 PATH=$PATH:/opt/rakudo-star-2016.07/bin
@@ -61,3 +61,5 @@ PATH=$PATH:/opt/apl-1.6/bin
 
 # rtorrent magnet
 export PATH=$PATH:/opt/magnet
+
+export EDITOR="vim"
