@@ -161,7 +161,7 @@ set cursorline
 " hidden chars
 set list
 set listchars=tab:»\ ,eol:¬,trail:·,nbsp:·
-set showbreak=└
+set showbreak=↪
 
 " syntax
 syntax enable
@@ -209,7 +209,7 @@ let g:lightline = {
           \ },
      \ 'component': {
           \ 'mode': '#%n %{WMode()}',
-          \ 'readonly': '%{&readonly?"ρ":""}',
+          \ 'readonly': '%{&readonly?"":""}',
           \ 'lineinfo': '[%L]%l:%c'
           \ },
      \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
