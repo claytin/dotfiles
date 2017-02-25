@@ -33,7 +33,7 @@ function vcs_info {
      local rep
 
      # git
-     local GIT_PROMPT_CHAR="γ" # (g)gamma for (g)it
+     local GIT_PROMPT_CHAR="±"
 
      rep="$(git rev-parse --show-toplevel 2>/dev/null)"
      if [[ ! -z $rep ]]; then
@@ -42,7 +42,7 @@ function vcs_info {
      fi
 
      # mercurial
-     local MERC_PROMPT_CHAR="μ" # (m)i for (m)ercurial
+     local MERC_PROMPT_CHAR="☿"
 
      rep="$(hg root 2>/dev/null)"
      if [[ ! -z $rep ]]; then
@@ -55,7 +55,7 @@ function vcs_info {
 # to be displayed
 function j_info {
      # local PROMPT_CHAR="❭" | i will forget what char it was, so don't delete
-     local PROMPT_CHAR="%%"
+     local PROMPT_CHAR="❭"
 
      local js="$(jobs | wc -l)"
 
@@ -67,7 +67,7 @@ function j_info {
 # display prompt chars colored based on the keymap and jobs
 function cst_pc {
      # local PROMPT_CHAR="❭" | i will forget what char it was, so don't delete
-     local PROMPT_CHAR="%%"
+     local PROMPT_CHAR="❭"
 
      local clr
      local km="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
