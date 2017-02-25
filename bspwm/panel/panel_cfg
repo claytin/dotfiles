@@ -1,9 +1,9 @@
 # config options for lemonbar
 
-PANEL_HEIGHT=18
+PANEL_HEIGHT=20
 
-PANEL_FONT1="tewi"
-PANEL_FONT2="siji"
+PANEL_FONT1="-*-tewi-medium-r-normal-*-11-*-*-*-*-*-*-*"
+PANEL_FONT2="-*-siji-medium-r-normal-*-10-*-*-*-*-*-*-*"
 
 PANEL_BG="#FF151516"
 PANEL_FG="#FFE3E5E3"
