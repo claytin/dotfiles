@@ -1,6 +1,6 @@
-#! /bin/sh
+#!/bin/sh
 
-bspc config border_width        2
+bspc config border_width        1
 bspc config window_gap          6
 
 bspc config split_ratio         0.50
@@ -12,12 +12,8 @@ bspc config focus_follows_pointer true
 bspc config pointer_modifier mod1
 
 # monitor list; unicode icons
-bspc monitor -d $(echo -ne "\ue1bf") \
-$(echo -ne "\ue1ed") \
-$(echo -ne "\ue1ec") \
-$(echo -ne "\ue1dd") \
-$(echo -ne "\ue02b") \
-$(echo -ne "\ue1e6") \
+# unicode chars { e1a0, e1ed, e1ec, e1dd, e1d6, e1e6 }
+bspc monitor -d      
 
 # rules
 bspc rule -a Thunar state=floating
@@ -30,5 +26,3 @@ bspc rule -a Htop state=floating
 $HOME/.fehbg
 
 xsetroot -cursor_name left_ptr
-
-$XDG_CONFIG_HOME/bspwm/panel/panel &
