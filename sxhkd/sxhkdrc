@@ -47,22 +47,22 @@ shift + alt + {1-9,0}
 # wm independent hotkeys
 #
 ctrl + alt + t
-     termite -e "zsh -c tmux"
+     urxvtc -e tmux
 
 ctrl + alt + u
-     termite
+     urxvtc
 
 ctrl + alt + f
      thunar
 
 ctrl + alt + m
-     termite --class=Ncmpcpp -e ncmpcpp
+     urxvtc --class=Ncmpcpp -e ncmpcpp
 
 ctrl + alt + a
-     termite --class=Alsamixer -e alsamixer
+     urxvtc --class=Alsamixer -e alsamixer
 
 ctrl + alt + c
-     termite --class=Htop -e htop
+     urxvtc --class=Htop -e htop
 
 alt + F2
      $XDG_CONFIG_HOME/dmenu/dmenu-bind
