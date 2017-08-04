@@ -38,8 +38,6 @@ set incsearch
 "" misc/test
 " stop unnecessary rendering
 set lazyredraw
-" highlight column
-set cursorcolumn
 
 " very-magic mode on, when doing regex search
 nnoremap / /\v
@@ -110,8 +108,8 @@ set scrolloff=5
 set wrap
 
 " indentation
-set shiftwidth=5
-set tabstop=5
+set shiftwidth=4
+set tabstop=4
 
 " spaces insted of tabs
 set expandtab
@@ -121,9 +119,9 @@ set smarttab
 set autoindent
 set smartindent
 
-" -- highlight matching "block chars
+" highlight matching "block chars
 set showmatch
-" -- timeout of
+" timeout of
 set matchtime=4
 
 " some dirs and backup
@@ -172,7 +170,7 @@ colorscheme seoul256
 let g:seoul256_background=233
 colo seoul256
 
-" gui opts (gvim)
+" gvim
 if has('gui_running')
      " no toolbar
      set guioptions-=T
@@ -194,10 +192,12 @@ endif
 call plug#begin()
 " status line plugin
 Plug 'itchyny/lightline.vim'
+" some comfy plugins
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 call plug#end()
 
 " status line
-" the (r)h(o) stands for (r)ead (o)nly
 let g:lightline = {
      \ 'colorscheme': 'seoul256',
      \ 'active': {
@@ -215,6 +215,30 @@ let g:lightline = {
      \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
      \ 'subseparator': { 'left': "▒", 'right': "░"}
      \ }
+
+" Goyo conf
+
+let g:goyo_width = 100
+function! s:goyo_enter()
+     " deactivate tmux status when entering goyo
+     silent !tmux set status off
+     " show line numbers
+     set number
+     " show right column at 80th character
+     set cc=80
+     " lime light integration
+     Limelight
+endfunction
+
+function! s:goyo_leave()
+     "
+     silent !tmux set status on
+     "
+     Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " manualy added plugins autoload
 set runtimepath^=~/.vim/bundle/vim-apl/
