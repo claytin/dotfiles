@@ -53,8 +53,8 @@ function zle-line-init zle-keymap-select {
 PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
 
 # Perl6
-PATH=$PATH:/opt/rakudo-star-2016.07/bin
-PATH=$PATH:/opt/rakudo-star-2016.07/share/perl6/site/bin:/bin
+PATH=$PATH:/opt/rakudo-star-2017.04/bin
+PATH=$PATH:/opt/rakudo-star-2017.04/share/perl6/site/bin:/bin
 
 # APL
 PATH=$PATH:/opt/apl-1.6/bin
