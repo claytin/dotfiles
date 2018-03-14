@@ -3,7 +3,6 @@ alias skus="setxkbmap -layout us -variant alt-intl"
 alias skbr="setxkbmap -layout br -variant abnt2"
 
 # "quick dir nav (needs autocd on)
-alias home="$HOME"
 alias ...="../.."
 alias ....="../../.."
 
@@ -18,7 +17,8 @@ alias lh="ls -hlA"
 alias grep="grep --color=auto"
 
 # vim
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 
 # misc
 alias j="jobs -l"
@@ -35,7 +35,7 @@ alias gcmmt="git commit"
 alias gpull="git pull"
 alias gpush="git push"
 alias gcout="git checkout"
-alias gmrge="git merge"
+alias gmrg="git merge"
 alias gdiff="git diff"
 alias gclo="git clone"
 alias gcko="git checkout"
