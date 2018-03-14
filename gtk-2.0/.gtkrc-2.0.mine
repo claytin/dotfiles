@@ -1,6 +1,6 @@
 # theme/icon theme
-gtk-theme-name = "Arc-Flatabulous"
-gtk-icon-theme-name = "Vertex"
+gtk-theme-name = "Lumiere"
+gtk-icon-theme-name = "HALO"
 
 # font
 style "user-font" {
