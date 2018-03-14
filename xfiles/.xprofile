@@ -1,13 +1,12 @@
-# grant just one video output
-if [[ $HOST == "Z0" ]]; then
-     xrandr --output LVDS1 --off --output VGA1 --auto
-fi
+# append added fonts
+xset fp+ /usr/share/fonts/misc/
 
 # start compositor
-compton -cCf -o 0.48 -r 10 -t 3 -l -10 -D 5 --backend glx --vsync opengl -b
+pkill -u $USER -x compton
+compton -zcf -o 0.66 -r 11 -t -13 -l -20 -D 5 --backend glx --vsync opengl -b
 
 # start urxvt daemon
-urxvtd -q -o -f
+[ -z $(ps -u $USER | grep urxvtd) ] && urxvtd -q -o -f
 
 # japanese input
 export GTK_IM_MODULE="uim"
