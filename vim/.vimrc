@@ -35,7 +35,6 @@ set smartcase
 set hlsearch
 set incsearch
 
-"" misc/test
 " stop unnecessary rendering
 set lazyredraw
 
@@ -164,40 +163,29 @@ set showbreak=↪
 " syntax
 syntax enable
 
-" color scheme
-set background=dark
-colorscheme seoul256
-let g:seoul256_background=233
-colo seoul256
-
-" gvim
-if has('gui_running')
-     " no toolbar
-     set guioptions-=T
-     " no menu
-     set guioptions-=m
-
-     " no right scrollbar
-     set guioptions-=r
-     " no left scrollbar
-     set guioptions-=L
-
-     set guifont=Envy\ Code\ R\ 9
-
-     " geometry
-     set lines=30 columns=120
-endif
-
 " Plugins (vim-plug)
 call plug#begin()
+" colors
+Plug 'chriskempson/base16-vim'
+
 " status line plugin
 Plug 'itchyny/lightline.vim'
+
 " some comfy plugins
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+
 call plug#end()
 
-" status line
+" color scheme
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+
+colo base16-tomorrow-night
+
+" status line, based on xero's conf (http://xero.nu)
 let g:lightline = {
      \ 'colorscheme': 'seoul256',
      \ 'active': {
@@ -217,7 +205,6 @@ let g:lightline = {
      \ }
 
 " Goyo conf
-
 let g:goyo_width = 100
 function! s:goyo_enter()
      " deactivate tmux status when entering goyo
