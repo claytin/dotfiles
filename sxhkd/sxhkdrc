@@ -4,69 +4,72 @@
 
 # quit bspwm-session
 ctrl + alt + x
-     bspc quit
+    bspc quit
 
 # close focused window
 ctrl + alt + q
-     bspc node -c
+    bspc node -c
 
 shift + alt + {t,s,f}
-	bspc node -t {tiled,floating,fullscreen}
+    bspc node -t {tiled,floating,fullscreen}
 
 # move windows around on current layout
 shift + alt + {h,j,k,l}
-	bspc node -s {west,south,north,east}
+    bspc node -s {west,south,north,east}
 
 # focus (cycle) windows
 alt + {j,k}
-     bspc node -f {next,prev}.local
+    bspc node -f {next,prev}.local
 
 # cycle leafs of current layout
 ctrl + alt + {comma,period}
-     bspc desktop -f {next,prev}
+    bspc desktop -f {next,prev}
 
 # set preselection
 ctrl + alt + {h,j,k,l,space}
-     bspc node -p {west,south,north,east,cancel}
+    bspc node -p {west,south,north,east,cancel}
 
 # resize
 shift + alt + {Left,Down,Up,Right}
-     bspc window -e {left -10,down +10,up -10,right +10}
+    bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
 
 ctrl + alt + {Left,Down,Up,Right}
-     bspc window -e {right -10,up +10,down -10,left +10}
+    bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
 
 # goes to selected desktop
 alt + {1-9,0}
-     bspc desktop -f ^{1-9,10}
+    bspc desktop -f ^{1-9,10}
 
 # moves window to the Nth desktop
 shift + alt + {1-9,0}
-     bspc node -d ^{1-9,10}
+    bspc node -d ^{1-9,10}
 
+#
 # wm independent hotkeys
 #
+
 ctrl + alt + t
-     urxvtc -e tmux
+    urxvtc -name tmux -e tmux
 
 ctrl + alt + u
-     urxvtc
+    urxvtc
 
 ctrl + alt + f
-     thunar
+    thunar
 
 ctrl + alt + m
-     urxvtc --class=Ncmpcpp -e ncmpcpp
+    urxvtc -name ncmpcpp -e ncmpcpp
 
 ctrl + alt + a
-     urxvtc --class=Alsamixer -e alsamixer
+    urxvtc -name alsamixer -e alsamixer
 
 ctrl + alt + c
-     urxvtc --class=Htop -e htop
+    urxvtc -name htop -e htop
 
 alt + F2
-     $XDG_CONFIG_HOME/dmenu/dmenu-bind
+    rofi -show
 
-# make sxhkd reload its configuration files:
+# reload bspwm and sxhkd configuration files
 ctrl + alt + y
-     pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd;\
+    ~/.config/bspwm/bspwmrc
