@@ -13,5 +13,4 @@ URxvt.cursorUnderline: true
 URxvt.visualBell:      false
 
 URxvt.font:            -*-tamsyn-medium-r-normal-*-12-*-*-*-*-*-iso8859-1, \
-                       -nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1, \
                        -lucy-tewi-medium-r-normal-*-11-*-*-*-*-*-iso10646-*
