@@ -1,6 +1,6 @@
 #!/bin/sh
 
-bspc config border_width        1
+bspc config border_width        2
 bspc config window_gap          6
 
 bspc config split_ratio         0.50
@@ -11,18 +11,29 @@ bspc config gapless_monocle     true
 bspc config focus_follows_pointer true
 bspc config pointer_modifier mod1
 
-# monitor list; unicode icons
-# unicode chars { e1a0, e1ed, e1ec, e1dd, e1d6, e1e6 }
-bspc monitor -d      
+# colors
+bspc config active_border_color #5d6666
+bspc config normal_border_color #282a2e
+
+# monitors list
+bspc monitor -d web edit term files mmid trash
 
 # rules
-bspc rule -a Thunar state=floating
-bspc rule -a Firefox desktop="^1"
-bspc rule -a Ncmpcpp desktop="^4" state=floating
-bspc rule -a Alsamixer desktop="^4" state=floating
-bspc rule -a Htop state=floating
+bspc rule -a URxvt:ncmpcpp desktop='^5' follow=on state=floating
+bspc rule -a URxvt:htop state=floating
+bspc rule -a URxvt:alsamixer state=floating
+bpsc rule -a Thunar:thunar state=floating
 
-# autostart
+## Autostart #
+
+# set monitor env variable, used by polybar
+export MONITOR=$(xrandr | awk -e '$2 == "connected" { print $1 }')
+
+# launch bar
+$XDG_CONFIG_HOME/polybar/launch.sh
+
+# set wallpaper
 $HOME/.fehbg
 
+# mouse pointer
 xsetroot -cursor_name left_ptr
