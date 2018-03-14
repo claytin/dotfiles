@@ -1,5 +1,5 @@
-! Copy of the base16-tomorrow-night (256 colors).
-! See https://github.com/chriskempson/base16-xresources
+! base16-tomorrow-night (256 colors)
+! https://github.com/chriskempson/base16-xresources
 
 #define base00 #1d1f21
 #define base01 #282a2e
@@ -25,6 +25,7 @@
 *.color0:      base00
 *.color8:      base03
 
+! red
 *.color1:      base08
 *.color9:      base08
 
@@ -46,7 +47,7 @@
 *.color7:      base05
 *.color15:     base07
 
-! Some extra colors, they may not work for some apps
+! extra colors
 *.color16:     base09
 *.color17:     base0f
 *.color18:     base01
