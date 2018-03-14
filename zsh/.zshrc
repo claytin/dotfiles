@@ -31,8 +31,6 @@ source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
 
-[[ -f $HOME/.zlaptop ]] && source $HOME/.zlaptop
-
 # helps with colors on prompt
 autoload -U colors
 colors
@@ -44,22 +42,28 @@ export KEYTIMEOUT=1
 zle -N zle-line-init
 zle -N zle-keymap-select
 
+# prompt setup
 function zle-line-init zle-keymap-select {
-     PROMPT="$(prologue)"$'\n'"$(vcs_info)$(cst_pc)" # why zsh
+     PROMPT="$(vcs_info)"
+     PROMPT="$PROMPT$(prompt_stats)"
 
+     RPROMPT="$(format_path) "
      zle reset-prompt
 }
 
 PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
+RPROMPT="$(echo "%{\e[37m%}%{\e[4m%}")"
 
-# Perl6
-PATH=$PATH:/opt/rakudo-star-2017.04/bin
-PATH=$PATH:/opt/rakudo-star-2017.04/share/perl6/site/bin:/bin
-
-# APL
+# APL support
 PATH=$PATH:/opt/apl-1.6/bin
 
 # rtorrent magnet
 export PATH=$PATH:/opt/magnet
 
-export EDITOR="vim"
+export EDITOR="nvim"
+
+# load base16-shell utility
+BASE16_SHELL=$XDG_CONFIG_HOME/base16-shell/
+
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] &&\
+eval "$($BASE16_SHELL/profile_helper.sh)"
