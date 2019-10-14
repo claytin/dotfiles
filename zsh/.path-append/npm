@@ -1,0 +1,2 @@
+# loca/global npm
+export PATH=$PATH:~/.npm-global
