@@ -54,15 +54,23 @@ function zle-line-init zle-keymap-select {
 PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
 RPROMPT="$(echo "%{\e[37m%}%{\e[4m%}")"
 
-# APL support
-PATH=$PATH:/opt/apl-1.6/bin
+# XDG
+export XDG_CONFIG_HOME="${HOME}/.config"
 
-# rtorrent magnet
-export PATH=$PATH:/opt/magnet
+# PATH setup
+for f in ~/.path-append/*; do
+    source $f
+done
+
+export $PATH
+
+# neovim setup
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
 export EDITOR="nvim"
 
-# load base16-shell utility
+# base16-shell
 BASE16_SHELL=$XDG_CONFIG_HOME/base16-shell/
 
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] &&\
