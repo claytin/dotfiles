@@ -175,6 +175,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
+" display symbols to indicate the change status of cvs managed files
+Plug 'mhinz/vim-signify'
+
+" display undo tree
+Plug 'mbbill/undotree'
 call plug#end()
 
 " color scheme
@@ -207,8 +212,6 @@ let g:lightline = {
 " Goyo conf
 let g:goyo_width = 100
 function! s:goyo_enter()
-     " deactivate tmux status when entering goyo
-     silent !tmux set status off
      " show line numbers
      set number
      " show right column at 80th character
@@ -218,8 +221,6 @@ function! s:goyo_enter()
 endfunction
 
 function! s:goyo_leave()
-     "
-     silent !tmux set status on
      "
      Limelight!
 endfunction
