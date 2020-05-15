@@ -209,6 +209,9 @@ let g:lightline = {
      \ 'subseparator': { 'left': "▒", 'right': "░"}
      \ }
 
+" avoids redundant mode display
+set noshowmode
+
 " Goyo conf
 let g:goyo_width = 100
 function! s:goyo_enter()
