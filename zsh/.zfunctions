@@ -3,39 +3,39 @@
 # collects git info
 function git_info {
     # get the repo name only from the repo path string
-    local git_str="%{\e[34;1m%}$(basename $1)%{\e[0m%} on "
+    local git_str="%{\e[34;1m%}$(basename $1)%{\e[0m%} at "
 
     # wich branch is this?
     local branch=$(git branch | grep \*)
-    git_str="${git_str}%{\e[96m%}${branch/#"* "/""}%{\e[0m%}"
+    git_str="$git_str%{\e[96m%}${branch/#"* "/""}%{\e[0m%}"
 
     # there are modified files?
     local mods=$(git status -s | wc -l)
-    [ $mods -gt 0 ] && git_str="${git_str}%{\e[36m%}*%{\e[0m%}"
+    [[ $mods -gt 0 ]] && git_str="$git_str%{\e[36m%}*%{\e[0m%}"
 
-    echo "${git_str} "
+    echo "$git_str "
 }
 
 # collects mercurial info
 function hg_info {
     # get the repo name only from the repo path string
-    local hg_str="%{\e[34;1m%}$(basename $1)%{\e[0m%} on "
+    local hg_str="%{\e[34;1m%}$(basename $1)%{\e[0m%} at "
 
     # wich branch is this?
-    hg_str="${hg_str}%{\e[96m%}$(hg branch)%{\e[0m%}"
+    hg_str="$hg_str%{\e[96m%}$(hg branch)%{\e[0m%}"
 
     # there are modified files?
     local mods=$(hg status | wc -l)
-    [ $mods -gt 0 ] && hg_str="${hg_str}%{\e[36m%}*%{\e[0m%}"
+    [[ $mods -gt 0 ]] && hg_str="$hg_str%{\e[36m%}*%{\e[0m%}"
 
-    echo "${hg_str} "
+    echo "$hg_str "
 }
 
 # checks if there are suspended jobs, and returns the color of the prompt char
 function jobs_stats {
     local job_count="$(jobs | wc -l)"
 
-    [ $job_count -gt 0 ] && echo -ne "%{\e[93m%}" && return
+    [[ $job_count -gt 0 ]] && echo -ne "%{\e[93m%}" && return
 
     echo -ne $1
 }
@@ -47,7 +47,7 @@ function vcs_info {
     # git
     rep="$(git rev-parse --show-toplevel 2>/dev/null)" # repo path
 
-    if [ ! -z $rep ]; then # path is a repo
+    if [[ ! -z $rep ]]; then # path is a repo
         echo -ne "%{\e[95m%}(git)%{\e[0m%} $(git_info $rep)"
         return
     fi
@@ -55,7 +55,7 @@ function vcs_info {
     # mercurial
     rep="$(hg root 2>/dev/null)" # repo path
 
-    if [ ! -z $rep ]; then # path is a repo
+    if [[ ! -z $rep ]]; then # path is a repo
         echo -ne "%{\e[95m%}(hg)%{\e[0m%} $(hg_info $rep)"
         return
     fi
@@ -66,9 +66,9 @@ function prompt_stats {
     local color
     local km="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}" # key mode
 
-    [ $km = "NORMAL" ] && color="%{\e[35m%}" || color="%{\e[32m%}"
+    [[ $km = "NORMAL" ]] && color="%{\e[35m%}" || color="%{\e[32m%}"
 
-    echo -ne "$(jobs_stats $color)>${color}>%{\e[0m%} "
+    echo -ne "$(jobs_stats $color)>$color>%{\e[0m%} "
 }
 
 # display pwd fitted to half of the terminal length
@@ -76,7 +76,7 @@ function format_path {
     local pwd_length=${#${"${PWD/#$HOME/~}"}}
     local col_avail=$((COLUMNS/2.0)) # columns available for the path string
 
-    if [ $(echo "$pwd_length > $col_avail" | bc -l) -eq 1 ]; then # to long
+    if [[ $(echo "$pwd_length > $col_avail" | bc -l) -eq 1 ]]; then # to long
         local offset=$(( $pwd_length - $COLUMNS + 6))
 
         echo "%{\e[37m%}%{\e[4m%}${${PWD/#$HOME/~}:$offset} ...%{\e[0m%}"
