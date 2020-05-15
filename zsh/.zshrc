@@ -1,6 +1,6 @@
 # histroy
 HISTSIZE=5000
-HISTFILE="${HOME}/.zhistory"
+HISTFILE="$HOME/.zhistory"
 SAVEHIST=$HISTSIZE
 
 setopt append_history
@@ -21,13 +21,9 @@ promptinit
 # auto cd into dirs
 setopt autocd
 
-# extend glob
-setopt extendedglob
-
 # dircolors
 eval $(dircolors ~/.dircolors)
 
-source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
 
@@ -54,22 +50,30 @@ function zle-line-init zle-keymap-select {
 PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
 RPROMPT="$(echo "%{\e[37m%}%{\e[4m%}")"
 
-# XDG
-export XDG_CONFIG_HOME="${HOME}/.config"
-
 # PATH setup
 for f in ~/.path-append/*; do
     source $f
 done
 
-# neovim setup
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+# set the default editor
+ed=($(whereis nvim vim vi nano |\
+      awk -e 'NF > 1 { print substr($1, 1, length($1) - 1) }'))
 
-export EDITOR="nvim"
+if [[ $#ed -gt 0 ]]; then # found one of the editors in the $ed line
+    export EDITOR="$ed[1]"
+else
+    export EDITOR="echo -e \"Well... This is some deep shit\!\""
+fi
+
+unset ed
 
 # base16-shell
-BASE16_SHELL=$XDG_CONFIG_HOME/base16-shell/
+BASE16_SHELL="$HOME/.config/base16-shell/"
 
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] &&\
-eval "$($BASE16_SHELL/profile_helper.sh)"
+[[ -n "$PS1" ]] && [[ -s "$BASE16_SHELL/profile_helper.sh" ]] &&\
+eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Set XDG if not yet
+[[ -z $XDG_CONFIG_HOME ]] && export XDG_CONFIG_HOME="$HOME/.config"
+
+source $HOME/.zaliases
