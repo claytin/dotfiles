@@ -9,16 +9,15 @@ alias ....="../../.."
 # listing
 alias ls='ls --color=auto --group-directories-first --time-style=+"%d-%m-%Y %H:%M" -F'
 alias l='ls'
-alias ll="ls -l"
-alias la="ls -A"
-alias lh="ls -hlA"
+alias ll="l -hl"
+alias la="l -A"
+alias lh="l -hlA"
 
 # grep
 alias grep="grep --color=auto"
 
-# vim
-alias vi="nvim"
-alias vim="nvim"
+# (t)ext (e)ditor
+alias te="$EDITOR"
 
 # misc
 alias j="jobs -l"
@@ -27,6 +26,8 @@ alias free="free -m" # size in MB
 
 # better cp behavior
 alias cp="cp -i" # asks before overriting
+alias cr="cp -r"
+alias cu="cr -u" # update
 
 # git
 alias gstat="git status"
@@ -38,6 +39,5 @@ alias gcout="git checkout"
 alias gmrg="git merge"
 alias gdiff="git diff"
 alias gclo="git clone"
-alias gcko="git checkout"
 alias gadd="git add"
 alias glog="git log"
