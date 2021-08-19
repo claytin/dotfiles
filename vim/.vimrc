@@ -88,8 +88,13 @@ scriptencoding utf-8
 " behaves like vim (not compatible with vi)
 set nocompatible
 
+" documentation on this is meh; enables faster "unsupportert" scrolling for
+" slow environments?
 set ttyfast
-set t_Co=256
+
+if !has('gui_running')
+    set t_Co=256
+endif
 
 set lazyredraw
 set autoread
@@ -188,25 +193,32 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
 endif
 
-colo base16-tomorrow-night
+set background=light
+colo base16-solarized-light
 
 " status line, based on xero's conf (http://xero.nu)
 let g:lightline = {
-     \ 'colorscheme': 'seoul256',
+     \ 'colorscheme': 'solarized',
+     \
      \ 'active': {
-          \ 'left': [ ['mode'],
+          \ 'left': [ ['bufnum', 'mode'],
                     \ ['readonly', 'filename', 'modified'] ]
           \ },
+     \
      \ 'inactive': {
-          \ 'left': [ ['readonly', 'filename', 'modified'] ]
+          \ 'left': [ ['bufnum'],
+                    \ ['readonly', 'filename', 'modified'] ]
           \ },
+     \
      \ 'component': {
-          \ 'mode': '#%n %{WMode()}',
+          \ 'bufnum': '#%n',
           \ 'readonly': '%{&readonly?"":""}',
-          \ 'lineinfo': '[%L]%l:%c'
+          \ 'lineinfo': 'Ln %l, Col %c',
+          \ 'percent': ' %L'
           \ },
-     \ 'separator': { 'left': "▓▒░", 'right': "░▒▓"},
-     \ 'subseparator': { 'left': "▒", 'right': "░"}
+     \
+     \ 'separator': { 'left': "", 'right': " "},
+     \ 'subseparator': { 'left': "", 'right': ""}
      \ }
 
 " avoids redundant mode display
@@ -247,3 +259,10 @@ function! WMode()
 
      return 'NORMAL'
 endfunction
+
+" Appendix
+
+" Old status bar separator setup. Don't lose it!
+" separator: \u2597 (dark shade) + \u2592 (medium) + \u2591 (light) & reverse
+" subseparator: left: \u2592, right: \u2591
+" \ 'mode': '#%n %{WMode()}',
