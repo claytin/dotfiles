@@ -1,0 +1,2 @@
+# Clojure "automation" tool
+PATH=$PATH:$HOME/.local/share/leiningen/bin
