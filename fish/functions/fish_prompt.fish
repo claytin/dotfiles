@@ -8,7 +8,7 @@ function vi-mode-color
     case replace_one
         echo -n 'green'
     case visual
-        solarized_magenta='cb4b16' echo -n $solarized_magenta
+        solarized_magenta='d33682' echo -n $solarized_magenta
     case '*'
         echo -n 'red'
     end
