@@ -1,3 +1,3 @@
 function gdiff
-    command git diff $argv
+    git diff $argv
 end

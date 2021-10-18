@@ -1,3 +1,3 @@
 function gbran
-    command git branch $argv
+    git branch $argv
 end

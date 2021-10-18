@@ -1,3 +1,3 @@
 function gcmmt
-    command git commit $argv
+    git commit $argv
 end

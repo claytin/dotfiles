@@ -1,3 +1,3 @@
 function gmrg
-    command git merge $argv
+    git merge $argv
 end

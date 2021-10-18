@@ -1,3 +1,3 @@
-function gclo
-    command git clone $argv
+function gcl
+    git clone $argv
 end

@@ -1,3 +1,3 @@
-function gstat
-    command git status $argv
+function gst
+    git status $argv
 end

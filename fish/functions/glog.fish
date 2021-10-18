@@ -1,3 +1,3 @@
 function glog
-    command git log $argv
+    git log $argv
 end

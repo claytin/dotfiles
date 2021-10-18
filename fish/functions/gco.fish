@@ -1,3 +1,3 @@
-function gcout
-    command git checkout $argv
+function gco
+    git checkout $argv
 end

@@ -1,3 +1,3 @@
 function gpush
-    command git push $argv
+    git push $argv
 end
