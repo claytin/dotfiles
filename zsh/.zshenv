@@ -24,6 +24,7 @@ setopt autocd
 # dircolors
 eval $(dircolors ~/.dircolors)
 
+source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
 
@@ -51,13 +52,14 @@ PROMPT="%F{green}%f " # there is some delay when using %{%}, so ...
 RPROMPT="$(echo "%{\e[37m%}%{\e[4m%}")"
 
 # PATH setup
+# Fix path, make the packages local (use ~/.local/share/<pkg>/bin
 for f in ~/.path-append/*; do
+    # check if already in PATH
     source $f
 done
 
 # set the default editor
-ed=($(whereis nvim vim vi nano |\
-      awk -e 'NF > 1 { print substr($1, 1, length($1) - 1) }'))
+ed=($(whereis nvim vim vi nano | cut -d : -f 1))
 
 if [[ $#ed -gt 0 ]]; then # found one of the editors in the $ed line
     export EDITOR="$ed[1]"
@@ -76,4 +78,6 @@ eval "$("$BASE16_SHELL/profile_helper.sh")"
 # Set XDG if not yet
 [[ -z $XDG_CONFIG_HOME ]] && export XDG_CONFIG_HOME="$HOME/.config"
 
-source $HOME/.zaliases
+# opam configuration
+[[ ! -r /home/wilhelm/.opam/opam-init/init.zsh ]] || \
+source /home/wilhelm/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
