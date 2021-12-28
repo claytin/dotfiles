@@ -24,6 +24,18 @@ setopt autocd
 # dircolors
 eval $(dircolors ~/.dircolors)
 
+# set the default editor
+ed=($(whereis nvim vim vi nano | cut -d : -f 1))
+
+if [[ $#ed -gt 0 ]]; then # found one of the editors in the $ed line
+    export EDITOR="$ed[1]"
+else
+    export EDITOR="echo -e \"Well... This is some deep shit\!\""
+fi
+
+unset ed
+
+# source files
 source $HOME/.zaliases
 source $HOME/.zfunctions
 source $HOME/.zstyles
@@ -57,17 +69,6 @@ for f in ~/.path-append/*; do
     # check if already in PATH
     source $f
 done
-
-# set the default editor
-ed=($(whereis nvim vim vi nano | cut -d : -f 1))
-
-if [[ $#ed -gt 0 ]]; then # found one of the editors in the $ed line
-    export EDITOR="$ed[1]"
-else
-    export EDITOR="echo -e \"Well... This is some deep shit\!\""
-fi
-
-unset ed
 
 # base16-shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
