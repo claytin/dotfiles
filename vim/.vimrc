@@ -186,7 +186,10 @@ Plug 'mhinz/vim-signify'
 " display undo tree
 Plug 'mbbill/undotree'
 
-" kitty highlight
+" fish syntax hidden
+Plug 'dag/vim-fish'
+
+" kitty syntax highlight
 Plug 'fladson/vim-kitty'
 call plug#end()
 
