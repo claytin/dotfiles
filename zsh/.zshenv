@@ -82,3 +82,4 @@ eval "$("$BASE16_SHELL/profile_helper.sh")"
 # opam configuration
 [[ ! -r /home/wilhelm/.opam/opam-init/init.zsh ]] || \
 source /home/wilhelm/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+. "$HOME/.cargo/env"
