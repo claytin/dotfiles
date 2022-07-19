@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=swap-caps
+Exec=setxkbmap -option "ctrl:nocaps"
+StartupNotify=false
+Terminal=false
