@@ -1,3 +1,1 @@
-function fish_mode_prompt
-    return 0
-end
+function fish_mode_prompt; end
