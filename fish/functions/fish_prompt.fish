@@ -17,8 +17,7 @@ end
 # prints the appropriate prompt char
 # if so, prints a yellow indicator
 function prompt-char
-    status is-interactive && set -l pc 'λ ' || set -l pc '> '
-    cecho --bold --color=(vi-mode-color) -n $pc
+    cecho --bold --color=(vi-mode-color) -n "% "
 end
 
 # checks if there are suspended jobs
@@ -39,8 +38,8 @@ end
 # takes a vcs, checks if there are any changes to its state
 # if so, add a '*' character to the prompt
 function repo-status -a vcs
-    mods=($vcs status | wc -l) \
-    if test $mods -gt 0 # are there uncommited changes
+    # are there uncommited changes
+    if test ! -z "($vcs status 2> /dev/null)"
         cecho --color=cyan -n '*'
     end
 end
@@ -58,18 +57,18 @@ end
 function git-info
     vcs git; repo && echo -n " at "
 
-    # selects the active branch and strips the "* " prefix
-    branch=(gbran | grep "^*" | string sub -s3) cecho --color=cyan -n $branch
-
     repo-status git
+
+    # selects the active branch and strips the "* " prefix
+    branch=(gbran | grep "^*" | string sub -s3) cecho --color=cyan -n "$branch "
 end
 
 function hg-info
     vcs hg; repo && echo -n " at "
 
-    cecho --color=cyan -n (hg branch)
-
     repo-status hg
+
+    cecho --color=cyan -n "$(hg branch) "
 end
 
 function vcs-info
@@ -92,6 +91,5 @@ function fish_prompt
     set -l st $status
 
     # the layout of the commands that follow illustrate the prompt layout
-    vcs-info; echo
-    cmd-status $st; _jobs; prompt-char
+    cmd-status $st; _jobs; vcs-info; prompt-char
 end
