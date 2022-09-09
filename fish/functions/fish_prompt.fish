@@ -38,8 +38,17 @@ end
 # takes a vcs, checks if there are any changes to its state
 # if so, add a '*' character to the prompt
 function repo-status -a vcs
-    # are there uncommited changes
-    if test ! -z "($vcs status 2> /dev/null)"
+    switch "$vcs"
+        case git
+            set -f vcs_cmd $vcs status -s
+        case hg
+            set -f vcs_cmd $vcs status
+        case *
+            return
+    end
+
+    # are there uncommited changes?
+    if test ($vcs_cmd 2>/dev/null | wc -c) -gt 0
         cecho --color=cyan -n '*'
     end
 end
