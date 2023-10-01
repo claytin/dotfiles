@@ -1,0 +1,87 @@
+#!/usr/bin/env perl
+
+use warnings;
+use utf8;
+
+use constant PCHAR => '%';
+
+# Modifiers
+use constant {
+    N  => '\e[0;',
+    B  => '\e[1;',
+    NC => '\e[0m',
+};
+
+# Colors
+use constant {
+    BLACK  => '31m',
+    RED    => '31m',
+    GREEN  => '32m',
+    YELLOW => '33m',
+    BLUE   => '34m',
+    PURPLE => '35m', # usually called magenta
+    CYAN   => '36m',
+    WHITE  => '37m',
+};
+
+sub git_info {
+    # what branch?
+    chomp(my $branch = `git branch`);
+    $branch =~ s/\*\s*(.*)/$1/; # removes prefix *
+
+    # are there uncommited changes?
+    my $status = `git status -s 2>/dev/null` ? "*" : "";
+
+    return "${branch}$status ";
+}
+
+sub hg_info {
+    # what branch?
+    chomp(my $branch = `hg branch`);
+
+    # are there uncommited changes?
+    my $status = `hg status 2>/dev/null` ? "*" : "";
+
+    return "${branch}$status ";
+}
+
+sub vcs_info {
+    # Is this a repo? Git or Mercurial?
+    my $vcs;
+
+    if (`git rev-parse --show-toplevel 2>/dev/null`) {
+        $vcs = "git"
+    } elsif (`hg root 2>/dev/null`) {
+        $vcs = "hg"
+    } else {
+        return "";
+    }
+
+    # get the repo name
+    my @names = split "/", $ENV{PWD};
+
+    # basename indicates the repo
+    my $basename = pop @names;
+
+    print N, PURPLE, "($vcs) ", NC,
+          B, BLUE, "$basename", NC,
+          ' at ',
+          N, CYAN, ($vcs eq "git" ? git_info : hg_info), NC
+}
+
+# Avoid using the command jobs, it has different interfaces for different
+# shells (e.g. bash vs. fish), also, calling jobs from this script will always
+# return an empty output, which does not properly reflect the terminal state
+sub jobs {
+    # Match jobs in this terminal. See `man ps` for details
+    print B, YELLOW, "[*] ", NC if (`ps Tuh | awk '\$8 ~ /^Tl?\$|^S\$|^R\$/'`);
+}
+
+# In the main context caller returns undefined. See
+# https://perldoc.perl.org/functions/caller for details
+unless (caller) {
+    # Using white for PCHAR because of my light color scheme
+    &jobs;
+    &vcs_info;
+    print B, WHITE, PCHAR, NC, " ";
+}

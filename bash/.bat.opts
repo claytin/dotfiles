@@ -1,0 +1,11 @@
+# Keep the export here, because Bash is that stupid
+export BAT_THEME="Solarized (light)"
+
+export BAT_PAGER="less -RF"
+
+# Highlight help messages with bat
+alias bathelp="bat --language=help --plain"
+
+help() {
+    "$@" --help 2>&1 | bathelp
+}

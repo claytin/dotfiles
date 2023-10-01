@@ -1,0 +1,3 @@
+gup() {
+    git push $@
+}

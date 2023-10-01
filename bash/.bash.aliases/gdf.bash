@@ -1,0 +1,3 @@
+gdf() {
+    git diff $@
+}
