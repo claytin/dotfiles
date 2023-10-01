@@ -194,12 +194,8 @@ Plug 'fladson/vim-kitty'
 call plug#end()
 
 " color scheme
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
-
 set background=light
+let base16colorspace=256
 colo base16-solarized-light
 
 " status line, based on xero's conf (http://xero.nu)
