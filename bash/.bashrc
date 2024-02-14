@@ -48,6 +48,16 @@ if [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
 fi
 
+# Haskell tools
+if [ -f "$HOME/.ghcup/env" ]; then
+    source "$HOME/.ghcup/env"
+fi
+
+# OCaml tools
+if [ -r "$HOME/.opam/opam-init/init.sh" ]; then
+    source "$HOME/.opam/opam-init/init.sh" &>/dev/null
+fi
+
 # Bat options
 if [ -f ~/.bat.opts ]; then
     source ~/.bat.opts
@@ -62,3 +72,4 @@ fi
 if [ -f ~/.fzf.opts ]; then
     source ~/.fzf.opts
 fi
+. "$HOME/.cargo/env"
