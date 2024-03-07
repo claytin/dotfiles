@@ -1,0 +1,68 @@
+#!/usr/bin/env perl
+
+use warnings;
+use utf8;
+
+sub git_info {
+    # what branch?
+    chomp(my $branch = `git branch`);
+    $branch =~ s/\*\s*(.*)/$1/; # removes prefix *
+
+    # are there uncommited changes?
+    my $status = `git status -s 2>/dev/null` ? "*" : "";
+
+    return "${branch}$status ";
+}
+
+sub hg_info {
+    # what branch?
+    chomp(my $branch = `hg branch`);
+
+    # are there uncommited changes?
+    my $status = `hg status 2>/dev/null` ? "*" : "";
+
+    return "${branch}$status ";
+}
+
+sub vcs_info {
+    # Is this a repo? Git or Mercurial?
+    my $vcs;
+
+    if (`git rev-parse --show-toplevel 2>/dev/null`) {
+        $vcs = "git"
+    } elsif (`hg root 2>/dev/null`) {
+        $vcs = "hg"
+    } else {
+        return ""
+    }
+
+    # get the repo name
+    my @names = split "/", $ENV{PWD};
+
+    # basename indicates the repo
+    my $basename = pop @names;
+
+    print "($vcs):${basename}: at :", $vcs eq "git" ? git_info : hg_info;
+}
+
+# Avoid using the command jobs, it has different interfaces for different
+# shells (e.g. bash vs. fish), also, calling jobs from this script will always
+# return an empty output, which does not properly reflect the console state
+sub jobs {
+    # Match jobs in this terminal. See `man ps` for details
+    print "[*]" if (`ps Tuh | awk '\$8 ~ /^Tl?\$|^S\$|^R\$/'`)
+}
+
+# Handle command line args
+use Getopt::Long;
+
+my $vcs  = '';
+my $jobs = '';
+
+GetOptions(
+    'vcs'  => \$vcs,
+    'jobs' => \$jobs
+) or return;
+
+&vcs_info if ($vcs);
+&jobs     if ($jobs);
