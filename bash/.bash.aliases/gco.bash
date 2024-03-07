@@ -1,3 +1,0 @@
-gco() {
-    git checkout $@
-}

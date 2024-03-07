@@ -1,3 +1,0 @@
-gst() {
-    git status $@
-}
