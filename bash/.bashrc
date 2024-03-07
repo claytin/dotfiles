@@ -6,21 +6,17 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# check the window size after each command and, if necessary, update the values
-# of LINES and COLUMNS.
-shopt -s checkwinsize
-
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
+export BASE16_SHELL="$HOME/.config/base16-shell/"
+
+# Because Emacs will not display colors properly without this
+export COLORTERM=truecolor
 
 [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-source "$BASE16_SHELL/profile_helper.sh"
+    source "$BASE16_SHELL/profile_helper.sh"
 
-prompt() {
-    export PS1=`~/.z_prompt`
-}
-
-PROMPT_COMMAND="prompt"
+# The \ before $ delays the expansion of the call
+export PS1="\$(~/.ps1)"
 
 # Default parameter to send to the "less" command
 # -R: show ANSI colors correctly
@@ -32,7 +28,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Add sbin directories to PATH.  This is useful on systems that have sudo
+# Add sbin directories to PATH. This is useful on systems that have sudo
 echo $PATH | grep -Eq "(^|:)/sbin(:|)"     || PATH=$PATH:/sbin
 echo $PATH | grep -Eq "(^|:)/usr/sbin(:|)" || PATH=$PATH:/usr/sbin
 
@@ -72,4 +68,3 @@ fi
 if [ -f ~/.fzf.opts ]; then
     source ~/.fzf.opts
 fi
-. "$HOME/.cargo/env"
