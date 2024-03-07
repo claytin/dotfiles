@@ -1,0 +1,9 @@
+# Editor is not set
+if [ -z "$EDITOR" ]; then
+    export EDITOR=$(which emacs nvim vim vi nano 2>/dev/null | head -1)
+fi
+
+function te {
+    # Calls the default (t)ext (e)ditor
+    $EDITOR $@
+}
