@@ -33,8 +33,8 @@ echo $PATH | grep -Eq "(^|:)/sbin(:|)"     || PATH=$PATH:/sbin
 echo $PATH | grep -Eq "(^|:)/usr/sbin(:|)" || PATH=$PATH:/usr/sbin
 
 # Load alias functions
-if [ -d ~/.bash.aliases ]; then
-    for a in ~/.bash.aliases/*.bash; do
+if [ -d ~/.shell.aliases ]; then
+    for a in ~/.shell.aliases/*; do
         source $a
     done
 fi
