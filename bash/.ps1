@@ -9,8 +9,9 @@ MAGENTA="\001$(tput setaf 5)\002"
 CYAN="\001$(tput setaf 6)\002"
 RESET="\001$(tput sgr0)\002"
 
-FANCY_PROMPT=$YELLOW$(~/.z_prompt --jobs)$RESET
+FANCY_PROMPT+="|> "
 
+# Load VCS info
 VCS_STRING=$(~/.z_prompt --vcs)
 if [ -n "$VCS_STRING" ]; then
     # VCS_SPLITS, where
@@ -19,11 +20,16 @@ if [ -n "$VCS_STRING" ]; then
     # VCS_SPLITS[2] is a decorator for "at"
     # VCS_SPLITS[3] is the branch and its status indicator
     VCS_SPLITS=(${VCS_STRING//:/ })
-    
-    FANCY_PROMPT=$FANCY_PROMPT' '$MAGENTA${VCS_SPLITS[0]}$RESET
-    FANCY_PROMPT=$FANCY_PROMPT' '$BLUE${VCS_SPLITS[1]}$RESET
-    FANCY_PROMPT=$FANCY_PROMPT' '${VCS_SPLITS[2]}
-    FANCY_PROMPT=$FANCY_PROMPT' '$CYAN${VCS_SPLITS[3]}$RESET
+
+    FANCY_PROMPT=$CYAN${VCS_SPLITS[3]}$RESET' '$FANCY_PROMPT
+    FANCY_PROMPT=${VCS_SPLITS[2]}$RESET' '$FANCY_PROMPT
+    FANCY_PROMPT=$BLUE${VCS_SPLITS[1]}$RESET' '$FANCY_PROMPT
+    FANCY_PROMPT=$MAGENTA${VCS_SPLITS[0]}$RESET' '$FANCY_PROMPT
 fi
 
-echo -ne "$FANCY_PROMPT |> "
+JS=$(~/.z_prompt --jobs)
+if [ -n "$JS" ]; then
+    FANCY_PROMPT=$YELLOW$JS$RESET' '$FANCY_PROMPT
+fi
+
+echo -ne "$FANCY_PROMPT"
