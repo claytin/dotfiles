@@ -38,6 +38,9 @@
 ;; Add a ruler that shows fill-column at the 80th character
 (setq-default fill-column 80)
 
+;; Don't show emacs default buffer
+(setq inhibit-startup-screen t)
+
 (add-hook 'prog-mode-hook
 		  (lambda () (ruler-mode 1)))
 (add-hook 'latex-mode-hook
