@@ -80,8 +80,6 @@ nnoremap L g_
 nnoremap <localleader>u gUiw
 nnoremap <localleader>y gUiwea
 
-set shell=/bin/zsh
-
 set encoding=utf-8
 scriptencoding utf-8
 
