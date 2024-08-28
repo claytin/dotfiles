@@ -1,9 +1,12 @@
-# Editor is not set
-if [ -z "$EDITOR" ]; then
-    export EDITOR=$(which emacs nvim vim vi nano 2>/dev/null | head -1)
-fi
+# Choose a text editor
+export EDITOR=$(which emacs vim vi nano 2>/dev/null | head -1)
 
 function te {
-    # Calls the default (t)ext (e)ditor
-    $EDITOR "$@"
+	# handle emacs' special case, since it launches a gui by default
+	if [ $(basename $EDITOR) = "emacs" ]; then
+		NO_GUI="-nw"
+	fi
+
+	# Calls the default (t)ext (e)ditor
+	$EDITOR $NO_GUI "$@"
 }
