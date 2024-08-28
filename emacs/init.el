@@ -1,3 +1,28 @@
+(defconst custom-settings "~/.config/emacs/custom.d"
+  "Path to files that separate custom settings")
+
+;; Add package sources
+(require 'package)
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+;; Bootstrap packages
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(unless (package-installed-p 'solarized-theme)
+  (package-install 'solarized-theme))
+
+(unless (package-installed-p 'solarized-theme)
+  (package-install 'clojure-mode))
+
+(unless (package-installed-p 'lua-mode)
+  (package-install 'lua-mode))
+
+(setq use-package-always-ensure t
+	  use-package-verbose t)
+
 ;; Stop Emacs from creating a bunch of garbage
 (setq auto-save-default nil)
 (setq make-backup-files nil)
@@ -14,64 +39,35 @@
 (setq-default fill-column 80)
 
 (add-hook 'prog-mode-hook
-	  (lambda () (ruler-mode 1)))
+		  (lambda () (ruler-mode 1)))
 (add-hook 'latex-mode-hook
-	  (lambda () (ruler-mode 1)))
+		  (lambda () (ruler-mode 1)))
 
 ;; Show column numbers in mode-line
 (setq column-number-mode t)
 
 ;; Display line numbers on buffers in programming mode
 (add-hook 'prog-mode-hook
-	  'display-line-numbers-mode)
+		  'display-line-numbers-mode)
 
-;; Add package sources
-(require 'package)
-
-(add-to-list 'package-archives
-	     '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-
-(package-initialize)
+;; Highlight current line
+(global-hl-line-mode t)
 
 ;; Colors
-(unless (package-installed-p 'solarized-theme)
-  (package-install solarized-theme))
-
 (load-theme 'solarized-light t)
 
 ;; Default font
 (add-to-list 'default-frame-alist
-             '(font . "JetBrains Mono Regular-10"))
+			 '(font . "JetBrains Mono-10.5"))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ido-enable-flex-matching t)
- '(ido-mode 'both nil (ido))
- '(package-selected-packages '(erlang erlang-mode clojure-mode solarized-theme)))
+;; Reasonable default tab width
+(setq-default tab-width 4)
 
-(setq ido-create-new-buffer 'always)
-(setq-default confirm-nonexistent-file-or-buffer nil)
+;; Key bindings
+(global-set-key (kbd "C-c w") 'whitespace-mode)
+(global-set-key (kbd "C-c cw") 'delete-trailing-whitespace)
 
-(global-set-key (kbd "M-o") 'other-window)
-
-;; Clojure
-(unless (package-installed-p 'clojure-mode)
-  (package-install 'clojure-mode))
-
-;; Erlang
-(unless (package-installed-p 'erlang)
-  (package-install 'erlang))
-
-(require 'erlang-start)
-
-;; C/C++ mode options
-(setq c-default-style "stroustrup"
-	  c-basic-offset 4
-	  tab-width 4
-      indent-tabs-mode t)
+;; Custom settings "modules"
+(load (concat custom-settings "/ido.el"))
+(load (concat custom-settings "/ws.el"))
+(load (concat custom-settings "/c.el"))
