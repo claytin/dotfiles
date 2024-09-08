@@ -74,3 +74,4 @@
 (load (concat custom-settings "/ido.el"))
 (load (concat custom-settings "/ws.el"))
 (load (concat custom-settings "/c.el"))
+(load (concat custom-settings "/ocaml.el"))
