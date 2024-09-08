@@ -44,6 +44,11 @@ if [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
 fi
 
+# Go
+if [ -d "/usr/local/go/bin" ]; then
+	PATH=$PATH:/usr/local/go/bin
+fi
+
 # Haskell tools
 if [ -f "$HOME/.ghcup/env" ]; then
     source "$HOME/.ghcup/env"
