@@ -85,7 +85,7 @@ config.window_padding = {
    left   = '10px',
    right  = '10px',
    top    = '12px',
-   bottom = '0px',
+   bottom = '8px',
 }
 
 -- and finally, return the configuration to wezterm
