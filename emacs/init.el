@@ -1,6 +1,9 @@
 (defconst custom-settings "~/.config/emacs/custom.d"
   "Path to files that separate custom settings")
 
+(defconst mip-prefix "~/.config/emacs/mip"
+  "(M)anually (I)nstalled (P)ackages")
+
 ;; Add package sources
 (require 'package)
 
@@ -22,6 +25,10 @@
 
 (setq use-package-always-ensure t
 	  use-package-verbose t)
+
+;; MIP
+;; Smart Tab
+(add-to-list 'load-path (concat mip-prefix "/smarttabs"))
 
 ;; Stop Emacs from creating a bunch of garbage
 (setq auto-save-default nil)
@@ -69,6 +76,12 @@
 ;; Key bindings
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c cw") 'delete-trailing-whitespace)
+
+;; Cycle through windows
+(global-set-key (kbd "M-o") 'other-window)
+
+;; Directional window navigation
+(windmove-default-keybindings)
 
 ;; Custom settings "modules"
 (load (concat custom-settings "/ido.el"))
