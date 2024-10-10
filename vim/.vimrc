@@ -244,7 +244,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " manualy added plugins autoload
-set runtimepath^="/home/wilhelm/.opam/default/share/ocp-indent/vim"
+set runtimepath^="~/.opam/default/share/ocp-indent/vim"
 set runtimepath^=~/.vim/bundle/vim-apl/
 
 function! WMode()
