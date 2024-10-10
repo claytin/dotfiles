@@ -1,2 +1,2 @@
-(add-to-list 'load-path "/home/wilhelm/.opam/default/share/emacs/site-lisp")
+(add-to-list 'load-path "~/.opam/default/share/emacs/site-lisp")
 (require 'ocp-indent)
