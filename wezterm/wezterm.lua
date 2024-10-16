@@ -6,7 +6,14 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 -- TODO Should config fallback fonts
-config.font = wezterm.font('JetBrains Mono', { weight = 'Regular' })
+config.font = wezterm.font_with_fallback {
+   { family = 'JetBrains Mono', weight = 'Regular' },
+   { family = 'Fira Code', weight = 'Regular' },
+   { family = 'Noto Mono', weight = 'Regular' },
+   { family = 'MotoyaLMaru', weight = 'Regular' },
+   { family = 'Noto Sans Mono CJK JP', weight = 'Regular' }
+}
+
 config.font_size = 10.5
 
 -- Custom colors
