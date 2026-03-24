@@ -1,8 +1,8 @@
 ;; CLISP
 
-;; SLIME
-(unless (package-installed-p 'slime)
-  (package-install 'slime))
+;; TODO
+;; SLIME and SLY have compilation errors. Until those are fixed this file will
+;; remain "frozen"
 
 ;; External subprocess responsible for the evaluation of expressions in
 ;; lisp-mode
