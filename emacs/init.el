@@ -26,7 +26,9 @@
 ;; MIP
 ;;;; Smart Tabs
 ;;;; Each language must configure smarttabs in their own custom settings
-(add-to-list 'load-path (concat mip-prefix "/smarttabs"))
+(let ((smarttabs-file (concat mip-prefix "/smarttabs")))
+  (if (file-exists-p smarttabs-file)
+    (add-to-list 'load-path smarttabs-file)))
 ;; Package handling ends here --------------------------------------------------
 
 
@@ -41,6 +43,10 @@
 
 ;; Don't show emacs default buffer
 (setq inhibit-startup-screen t)
+
+;; Geometry
+(add-to-list 'default-frame-alist (cons 'width 100))
+(add-to-list 'default-frame-alist (cons 'height 40))
 
 ;; Ruler
 ;;;; Set fill-column (reference for line breaking and wrapping)
