@@ -1,13 +1,20 @@
 # i3 config file (v4)
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# "Variables"
+# Key variables
+# Mod4 = "Windows" key, Mod1 = Alt
+set $mod Mod4
+set $alt Mod1
 set $ctrl Control
+set $ret Return
+set $shft Shift
+
+# Default terminal
 set $term wezterm
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Noto Sans
+font pango:Noto Sans 10
 
 # Wallpaper
 # keep it commented for testing, uncomment otherwise
@@ -15,6 +22,10 @@ font pango:Noto Sans
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+#exec --no-startup-id dex-autostart --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -40,61 +51,88 @@ smart_borders on
 # Hide edge borders only if there is one window with no gaps
 hide_edge_borders smart_no_gaps
 
-# Use pactl to adjust volume in PulseAudio.
-#set $refresh_i3status killall -SIGUSR1 i3status
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Use Mouse+$alt to drag floating windows to their wanted position
+# Use left click + $alt to drag floating windows to their wanted position
+# Use right click + $alt to resize floating windows
 floating_modifier $alt
 
+# Move tiling windows via drag & drop by left-clicking anywhere into the window
+# while holding the floating modifier.
+tiling_drag modifier
+# swaps instead of moving containers, when pressed
+tiling_drag swap_modifier $shft
+
 # start a terminal
-bindsym $ctrl+$alt+t exec $term
+bindsym $mod+$ret exec $term
 
 # kill focused window
-bindsym $ctrl+$alt+q kill
+bindsym $mod+$shft+q kill
 
 # start rofi (a program launcher)
-bindsym $alt+F2 exec --no-startup-id rofi -show run
-bindsym $ctrl+$alt+c exec --no-startup-id rofi -show calc
+bindsym $mod+r exec --no-startup-id rofi -show run
 
-# change focus
-bindsym $alt+h focus left
-bindsym $alt+j focus down
-bindsym $alt+k focus up
-bindsym $alt+l focus right
+# change window focus (vi like navigation)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-# move focused window within layout
-bindsym $alt+Shift+h move left
-bindsym $alt+Shift+j move down
-bindsym $alt+Shift+k move up
-bindsym $alt+Shift+l move right
+# change window focus (cursor keys; keep this because of tt kb layout)
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-# split in horizontal orientation
-bindsym $alt+y split h
+# move focused window within layout (vi like)
+bindsym $mod+$shft+h focus left
+bindsym $mod+$shft+j focus down
+bindsym $mod+$shft+k focus up
+bindsym $mod+$shft+l focus right
 
-# split in vertical orientation
-bindsym $alt+x split v
+# move focused window within layout (cursor keys)
+bindsym $mod+$shft+Left focus left
+bindsym $mod+$shft+Down focus down
+bindsym $mod+$shft+Up focus up
+bindsym $mod+$shft+Right focus right
+
+# Vi like tiling splits.
+#
+# i3 splitting is conceptually different from, say, vi or tmux. In the latter,
+# the split orientation is determined by the drawing of a line, so if you draw a
+# vertical line you are splitting a container vertically, one "window" will
+# occupy the left side of the line and another one will occupy the right side.
+# i3 splitting refers to the disposition of windows within a container. In this
+# case, splitting vertically means arranging windows one on top of another; from
+# a vi user point of view, they are being split horizontally. To avoid
+# confusion, the following bindings are reversed (from i3's point of view),
+# aligned with saner conventions.
+#
+# split horizontally
+bindsym $mod+s split vertical
+#
+# split vertically
+bindsym $mod+v split horizontal
 
 # enter fullscreen mode for the focused container
-bindsym $alt+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $alt+d layout default
-bindsym $alt+s layout stacking
-bindsym $alt+t layout tabbed
+bindsym $mod+d layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $alt+Return floating toggle
+bindsym $alt+$ret floating toggle
 
 # change focus between tiling / floating windows
 bindsym $alt+space focus mode_toggle
 
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus parent
+
 # Names for default workspaces for which we configure key bindings later on.
 # This setup requires Font Awesome for the icons
-
 # Home (5bb6)
 set $ws1 "家"
 # Write (66f8)
@@ -109,12 +147,12 @@ set $ws5 "遊"
 set $ws6 "有"
 
 # switch to workspace
-bindsym $ctrl+$alt+1 workspace $ws1
-bindsym $ctrl+$alt+2 workspace $ws2
-bindsym $ctrl+$alt+3 workspace $ws3
-bindsym $ctrl+$alt+4 workspace $ws4
-bindsym $ctrl+$alt+5 workspace $ws5
-bindsym $ctrl+$alt+6 workspace $ws6
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
 
 # move focused container to workspace
 bindsym $ctrl+Shift+1 move container to workspace $ws1
@@ -125,11 +163,11 @@ bindsym $ctrl+Shift+5 move container to workspace $ws5
 bindsym $ctrl+Shift+6 move container to workspace $ws6
 
 # reload the configuration file
-bindsym $ctrl+Shift+c reload
+bindsym $mod+$ctrl+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $ctrl+Shift+r restart
+bindsym $mod+$ctrl+r restart
 # exit i3 (logs you out of your X session)
-bindsym $ctrl+Shift+x exec "i3-nagbar -t warning \
+bindsym $mod+$ctrl+x exec "i3-nagbar -t warning \
     -m 'Do you really want to exit i3? This will end your X session.' \
     -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -137,10 +175,10 @@ bindsym $ctrl+Shift+x exec "i3-nagbar -t warning \
 mode "resize" {
         # Pressing left will shrink the window’s width
         bindsym h resize shrink width 10 px or 10 ppt
-        # Pressing up will grow the window’s height
-        bindsym k resize grow height 10 px or 10 ppt
         # Pressing down will shrink the window’s height
-        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        # Pressing up will grow the window’s height
+        bindsym j resize grow height 10 px or 10 ppt
         # Pressing right will grow the window’s width
         bindsym l resize grow width 10 px or 10 ppt
 
@@ -151,13 +189,15 @@ mode "resize" {
         bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $ctrl+r
-        bindsym $alt+r mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+$shft+r mode "default"
 }
 
-bindsym $alt+r mode "resize"
+bindsym $mod+$shft+r mode "resize"
 
 # Status bar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-#bar {
-#    status_command i3status
-#}
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+bar {
+    status_command i3status
+}
