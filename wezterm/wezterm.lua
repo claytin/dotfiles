@@ -4,12 +4,24 @@ local wezterm = require 'wezterm'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- This is where you actually apply your config choices
--- TODO Should config fallback fonts
+-- Fonts
 config.font = wezterm.font_with_fallback {
-   { family = 'JetBrains Mono', weight = 'Regular' },
-   { family = 'Fira Code', weight = 'Regular' },
-   { family = 'Noto Mono', weight = 'Regular' },
+   {
+      family = 'JetBrains Mono', weight = 'Regular',
+      harfbuzz_features = {
+         'zero', 'cv04', 'cv11', 'cv12', 'cv17'
+      }
+   },
+
+   {
+      family = 'Fira Code', weight = 'Regular',
+      harfbuzz_features = {
+         'cv01', 'cv02', 'cv05', 'cv09', 'cv16', 'ss01', 'ss02', 'ss03',
+         'ss05', 'ss06'
+      }
+   },
+
+   { family = 'DejaVu Sans Mono', weight = 'Regular' },
    { family = 'MotoyaLMaru', weight = 'Regular' },
    { family = 'Noto Sans Mono CJK JP', weight = 'Regular' }
 }
@@ -30,7 +42,7 @@ config.colors = {
    -- Solarized-light colors for the tab bar
    tab_bar = {
 	  background = '#eee8d5',
-	  
+
 	  active_tab = {
 		 bg_color = '#fdf6e3',
 		 fg_color = '#586e74',
