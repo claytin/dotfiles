@@ -1,3 +1,8 @@
+;; Avoid encoding issues across OSs
+(prefer-coding-system 'utf-8-unix)
+(setq coding-system-for-read 'utf-8-unix)
+(setq coding-system-for-write 'utf-8-unix)
+
 ;; Constants
 (defconst custom-settings (expand-file-name "custom.d" user-emacs-directory)
   "Path to files that separate custom settings")
@@ -10,10 +15,13 @@
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
-;; Bootstrap packages
+(unless package-archive-contents (package-refresh-contents))
+
 (package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
+
+;; Bootstrap packages
+(unless (package-installed-p 'ligature)
+  (package-install 'ligature))
 
 (unless (package-installed-p 'solarized-theme)
   (package-install 'solarized-theme))
@@ -23,20 +31,19 @@
 (unless (package-installed-p 'paredit)
   (package-install 'paredit))
 
-;; MIP
-;;;; Smart Tabs
-;;;; Each language must configure smarttabs in their own custom settings
-(let ((smarttabs-file (concat mip-prefix "/smarttabs")))
-  (if (file-exists-p smarttabs-file)
-    (add-to-list 'load-path smarttabs-file)))
+;; (E)macs Poly(glot) lsp client
+(unless (package-installed-p 'eglot)
+  (package-install 'eglot))
+
 ;; Package handling ends here --------------------------------------------------
 
 
 ;; GUI options -----------------------------------------------------------------
-;; Hide toolbar and scroll bar on Emacs GUI
-(when (window-system)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
+;; Hide tool bar
+(tool-bar-mode -1)
+
+;; Hide scroll bar
+(scroll-bar-mode -1)
 
 ;; Hide menu bar
 (menu-bar-mode -1)
@@ -68,9 +75,34 @@
 ;; Colors
 (load-theme 'solarized-light t)
 
-;; Default font
-(add-to-list 'default-frame-alist
-			 '(font . "JetBrains Mono-10.5"))
+;; Font
+(cond ((eq system-type 'windows-nt)
+       (add-to-list 'default-frame-alist
+                    '(font . "JetBrainsMono NF-10")))
+      ((eq system-type 'gnu/linux)
+       (add-to-list 'default-frame-alist
+                    '(font . "JetBrains Mono-10")))
+      ((eq system-type 'darwin)
+       (message "We on a Mac now!?"))
+      (t (message "We on BSD BABY!")))
+
+;; Ligatures
+(use-package ligature
+  :config
+  ;; lets start with a global config and refine it later
+  (ligature-set-ligatures 't '("==" "===" "=/=" ">=" "<=" "&&" "&=" "++" "+++"
+                               "***" ";;" "?=" "<<" ">>" "<>" ">>>" "<<<" "||"
+                               "|=" "||=" "#!" "^=" "<$>" "<$" "$>" "<+>" "<+"
+                               "+>" "<*>" "<*" "*>" "</" "/>" "</>" "<!--"
+                               "<#--" "-->" "->" "<--" "<-" "<=<" "=<<" "<<="
+                               "<=>" "<==>" "==>" "=>" "=>>" ">=>" ">>=" ">>-"
+                               ">-" "-<" "-<<" ">->" "<-<" "<-|" "<=|" "|=>"
+                               "|->" "<->" "[|" "|]" "{|" "|}" "|>" "<|" "||>"
+                               "<||" "<|>" "..." ".." "::" ":::" ":=" "::="
+                               "//" "///" "/*" "*/" "/=" ";;;"))
+  ;; Ligature checks in all buffers
+  (global-ligature-mode t))
+
 ;; GUI Section ends here -------------------------------------------------------
 
 ;; Editing options -------------------------------------------------------------
@@ -124,6 +156,7 @@
 (load (concat custom-settings "/clojure.el"))
 (load (concat custom-settings "/racket.el"))
 (load (concat custom-settings "/scheme.el"))
+(load (concat custom-settings "/fs.el"))
 
 ;; Measure startup time
 (defun my/display-startup-time ()
